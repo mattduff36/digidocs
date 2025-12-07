@@ -45,6 +45,10 @@ export async function POST(
     }
 
     const userId = (await params).id;
+    
+    // Get override email from request body if provided (for demo accounts)
+    const body = await request.json().catch(() => ({}));
+    const overrideEmail = body.overrideEmail;
 
     // Get target user's profile
     const { data: targetProfile, error: profileError } = await supabase
@@ -105,7 +109,19 @@ export async function POST(
       userName: targetProfile.full_name!,
       temporaryPassword,
       isReset: true,
+      overrideEmail,
     });
+
+    // If demo account and no override email provided, return special response
+    if (emailResult.isDemoAccount && !emailResult.success) {
+      return NextResponse.json({
+        success: true,
+        temporaryPassword,
+        emailSent: false,
+        isDemoAccount: true,
+        demoEmail: authUser.user.email,
+      });
+    }
 
     if (!emailResult.success) {
       console.warn('Failed to send password reset email:', emailResult.error);
@@ -116,6 +132,7 @@ export async function POST(
       success: true,
       temporaryPassword, // Return password to show admin
       emailSent: emailResult.success,
+      isDemoAccount: emailResult.isDemoAccount || false,
     });
   } catch (error) {
     console.error('Error resetting password:', error);

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     // Get request body
     const body = await request.json();
-    const { email, full_name, phone_number, employee_id, role_id } = body;
+    const { email, full_name, phone_number, employee_id, role_id, overrideEmail } = body;
 
     // Validate required fields (password is now auto-generated)
     if (!email || !full_name) {
@@ -137,7 +137,26 @@ export async function POST(request: NextRequest) {
       userName: full_name,
       temporaryPassword,
       isReset: false,
+      overrideEmail,
     });
+
+    // If demo account and no override email provided, return special response
+    if (emailResult.isDemoAccount && !emailResult.success) {
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: authData.user.id,
+          email: authData.user.email,
+          full_name,
+          employee_id,
+          role_id,
+        },
+        temporaryPassword,
+        emailSent: false,
+        isDemoAccount: true,
+        demoEmail: email,
+      });
+    }
 
     if (!emailResult.success) {
       console.warn('Failed to send welcome email:', emailResult.error);
@@ -155,6 +174,7 @@ export async function POST(request: NextRequest) {
       },
       temporaryPassword, // Return password to show admin
       emailSent: emailResult.success,
+      isDemoAccount: emailResult.isDemoAccount || false,
     });
   } catch (error) {
     console.error('Error creating user:', error);

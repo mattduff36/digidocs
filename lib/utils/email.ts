@@ -3,11 +3,15 @@
  * Documentation: https://resend.com/docs/send-with-nextjs
  */
 
+import { isDemoEmail } from './demo-email';
+
 interface SendPasswordEmailParams {
   to: string;
   userName: string;
   temporaryPassword: string;
   isReset?: boolean;
+  /** Override email for demo accounts */
+  overrideEmail?: string;
 }
 
 /**
@@ -18,8 +22,23 @@ interface SendPasswordEmailParams {
 export async function sendPasswordEmail(params: SendPasswordEmailParams): Promise<{
   success: boolean;
   error?: string;
+  isDemoAccount?: boolean;
 }> {
-  const { to, userName, temporaryPassword, isReset = false } = params;
+  const { to, userName, temporaryPassword, isReset = false, overrideEmail } = params;
+  
+  // Check if this is a demo account
+  const isDemo = isDemoEmail(to);
+  if (isDemo && !overrideEmail) {
+    // Return early with flag to trigger modal on frontend
+    return {
+      success: false,
+      isDemoAccount: true,
+      error: 'Demo account requires real email address'
+    };
+  }
+  
+  // Use override email for demo accounts
+  const recipientEmail = isDemo && overrideEmail ? overrideEmail : to;
   
   try {
     // Check if Resend API key is configured
@@ -147,7 +166,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
-        to: [to],
+        to: [recipientEmail],
         subject,
         html: htmlContent
       })
@@ -166,7 +185,8 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
     console.log('Email sent successfully:', data);
     
     return {
-      success: true
+      success: true,
+      isDemoAccount: isDemo
     };
     
   } catch (error: any) {
@@ -221,6 +241,8 @@ interface SendProfileUpdateEmailParams {
   to: string;
   userName: string;
   changes: ProfileUpdateChanges;
+  /** Override email for demo accounts */
+  overrideEmail?: string;
 }
 
 /**
@@ -231,8 +253,21 @@ interface SendProfileUpdateEmailParams {
 export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParams): Promise<{
   success: boolean;
   error?: string;
+  isDemoAccount?: boolean;
 }> {
-  const { to, userName, changes } = params;
+  const { to, userName, changes, overrideEmail } = params;
+  
+  // Check if this is a demo account
+  const isDemo = isDemoEmail(to);
+  if (isDemo && !overrideEmail) {
+    return {
+      success: false,
+      isDemoAccount: true,
+      error: 'Demo account requires real email address'
+    };
+  }
+  
+  const recipientEmail = isDemo && overrideEmail ? overrideEmail : to;
   
   try {
     // Check if Resend API key is configured
@@ -321,7 +356,7 @@ export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParam
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
-        to: [to],
+        to: [recipientEmail],
         subject: 'Your MPDEE Digidocs Profile Has Been Updated',
         html: htmlContent
       })
@@ -340,7 +375,8 @@ export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParam
     console.log('Profile update email sent successfully:', data);
     
     return {
-      success: true
+      success: true,
+      isDemoAccount: isDemo
     };
     
   } catch (error: any) {
@@ -361,6 +397,8 @@ interface SendToolboxTalkEmailParams {
   to: string | string[];
   senderName: string;
   subject: string;
+  /** Override email for demo accounts */
+  overrideEmail?: string;
   // Note: We don't include message body in email for GDPR reasons
 }
 
@@ -369,8 +407,29 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
   sent?: number;
   failed?: number;
   error?: string;
+  hasDemoAccounts?: boolean;
 }> {
-  const { to, senderName, subject } = params;
+  const { to, senderName, subject, overrideEmail } = params;
+  
+  // Convert to array for consistent handling
+  const recipientArray = Array.isArray(to) ? to : [to];
+  
+  // Check if any recipients are demo accounts
+  const demoRecipients = recipientArray.filter(email => isDemoEmail(email));
+  const hasDemos = demoRecipients.length > 0;
+  
+  if (hasDemos && !overrideEmail) {
+    return {
+      success: false,
+      hasDemoAccounts: true,
+      error: 'Demo accounts require real email address'
+    };
+  }
+  
+  // Replace demo emails with override if provided
+  const finalRecipients = hasDemos && overrideEmail
+    ? recipientArray.map(email => isDemoEmail(email) ? overrideEmail : email)
+    : recipientArray;
   
   try {
     // Check if Resend API key is configured
@@ -383,9 +442,6 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
       };
     }
 
-    // Convert single email to array for consistent handling
-    const recipients = Array.isArray(to) ? to : [to];
-    
     // Resend allows up to 100 recipients per call, but we'll batch conservatively
     // to avoid rate limits: 10 emails per batch with delays
     const BATCH_SIZE = 10;
@@ -395,8 +451,8 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
     let failed = 0;
 
     // Process in batches
-    for (let i = 0; i < recipients.length; i += BATCH_SIZE) {
-      const batch = recipients.slice(i, i + BATCH_SIZE);
+    for (let i = 0; i < finalRecipients.length; i += BATCH_SIZE) {
+      const batch = finalRecipients.slice(i, i + BATCH_SIZE);
       
       const htmlContent = `
         <!DOCTYPE html>
@@ -482,7 +538,7 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
         });
 
         // Wait before next batch (unless this is the last batch)
-        if (i + BATCH_SIZE < recipients.length) {
+        if (i + BATCH_SIZE < finalRecipients.length) {
           await new Promise(resolve => setTimeout(resolve, BATCH_DELAY_MS));
         }
 
@@ -497,7 +553,8 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
     return {
       success: sent > 0,
       sent,
-      failed
+      failed,
+      hasDemoAccounts: hasDemos
     };
     
   } catch (error: any) {
@@ -518,6 +575,8 @@ interface SendTimesheetRejectionEmailParams {
   employeeName: string;
   weekEnding: string;
   managerComments: string;
+  /** Override email for demo accounts */
+  overrideEmail?: string;
 }
 
 /**
@@ -528,8 +587,20 @@ interface SendTimesheetRejectionEmailParams {
 export async function sendTimesheetRejectionEmail(params: SendTimesheetRejectionEmailParams): Promise<{
   success: boolean;
   error?: string;
+  isDemoAccount?: boolean;
 }> {
-  const { to, employeeName, weekEnding, managerComments } = params;
+  const { to, employeeName, weekEnding, managerComments, overrideEmail } = params;
+  
+  const isDemo = isDemoEmail(to);
+  if (isDemo && !overrideEmail) {
+    return {
+      success: false,
+      isDemoAccount: true,
+      error: 'Demo account requires real email address'
+    };
+  }
+  
+  const recipientEmail = isDemo && overrideEmail ? overrideEmail : to;
   
   try {
     const apiKey = process.env.RESEND_API_KEY;
@@ -597,7 +668,7 @@ export async function sendTimesheetRejectionEmail(params: SendTimesheetRejection
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
-        to: [to],
+        to: [recipientEmail],
         subject,
         html: htmlContent
       })
@@ -615,7 +686,10 @@ export async function sendTimesheetRejectionEmail(params: SendTimesheetRejection
     const data = await response.json();
     console.log('Timesheet rejection email sent successfully:', data);
     
-    return { success: true };
+    return { 
+      success: true,
+      isDemoAccount: isDemo
+    };
     
   } catch (error: any) {
     console.error('Error sending timesheet rejection email:', error);
@@ -633,6 +707,8 @@ interface SendTimesheetAdjustmentEmailParams {
   weekEnding: string;
   adjustmentComments: string;
   adjustedBy: string;
+  /** Override email for demo accounts */
+  overrideEmail?: string;
 }
 
 /**
@@ -643,8 +719,20 @@ interface SendTimesheetAdjustmentEmailParams {
 export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustmentEmailParams): Promise<{
   success: boolean;
   error?: string;
+  isDemoAccount?: boolean;
 }> {
-  const { to, recipientName, employeeName, weekEnding, adjustmentComments, adjustedBy } = params;
+  const { to, recipientName, employeeName, weekEnding, adjustmentComments, adjustedBy, overrideEmail } = params;
+  
+  const isDemo = isDemoEmail(to);
+  if (isDemo && !overrideEmail) {
+    return {
+      success: false,
+      isDemoAccount: true,
+      error: 'Demo account requires real email address'
+    };
+  }
+  
+  const recipientEmail = isDemo && overrideEmail ? overrideEmail : to;
   
   try {
     const apiKey = process.env.RESEND_API_KEY;
@@ -719,7 +807,7 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
-        to: [to],
+        to: [recipientEmail],
         subject,
         html: htmlContent
       })
@@ -737,7 +825,10 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
     const data = await response.json();
     console.log('Timesheet adjustment email sent successfully:', data);
     
-    return { success: true };
+    return { 
+      success: true,
+      isDemoAccount: isDemo
+    };
     
   } catch (error: any) {
     console.error('Error sending timesheet adjustment email:', error);

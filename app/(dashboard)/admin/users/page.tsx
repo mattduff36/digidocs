@@ -42,6 +42,8 @@ import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/lib/hooks/useAuth';
 import type { Database } from '@/types/database';
 import { RoleManagement } from '@/components/admin/RoleManagement';
+import { DemoEmailModal } from '@/components/ui/demo-email-modal';
+import { getDemoUserName } from '@/lib/utils/demo-email';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 type ProfileInsert = Database['public']['Tables']['profiles']['Insert'];
@@ -77,6 +79,15 @@ export default function UsersAdminPage() {
   const [emailSent, setEmailSent] = useState(false);
   const [passwordCopied, setPasswordCopied] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false);
+  
+  // Demo email modal states
+  const [demoEmailModalOpen, setDemoEmailModalOpen] = useState(false);
+  const [demoUserEmail, setDemoUserEmail] = useState('');
+  const [demoUserName, setDemoUserName] = useState('');
+  const [pendingResetData, setPendingResetData] = useState<{
+    userId: string;
+    temporaryPassword: string;
+  } | null>(null);
 
   // Form states
   const [formData, setFormData] = useState({
@@ -198,7 +209,7 @@ export default function UsersAdminPage() {
   }, [searchQuery, roleFilter, users]);
 
   // Handle add user
-  async function handleAddUser() {
+  async function handleAddUser(overrideEmail?: string) {
     if (!formData.email || !formData.full_name) {
       setFormError('Please fill in all required fields');
       return;
@@ -218,6 +229,7 @@ export default function UsersAdminPage() {
           phone_number: formData.phone_number,
           employee_id: formData.employee_id,
           role_id: formData.role_id,
+          overrideEmail,
         }),
       });
 
@@ -225,6 +237,26 @@ export default function UsersAdminPage() {
 
       if (!response.ok) {
         throw new Error(result.error || 'Failed to create user');
+      }
+
+      // Check if this is a demo account and needs email override
+      if (result.isDemoAccount && !result.emailSent) {
+        // Store the password and user data, show demo email modal
+        setPendingResetData({
+          userId: result.user.id,
+          temporaryPassword: result.temporaryPassword,
+        });
+        setDemoUserEmail(result.demoEmail);
+        setDemoUserName(getDemoUserName(result.demoEmail));
+        setDemoEmailModalOpen(true);
+        setAddDialogOpen(false);
+        
+        // Refresh users list
+        const usersWithEmails = await fetchUsersWithEmails();
+        setUsers(usersWithEmails);
+        setFilteredUsers(usersWithEmails);
+        
+        return;
       }
 
       // Refresh users list
@@ -253,6 +285,53 @@ export default function UsersAdminPage() {
       setFormError(error instanceof Error ? error.message : 'Failed to create user');
     } finally {
       setFormLoading(false);
+    }
+  }
+  
+  // Handle demo email submission for new user
+  async function handleDemoEmailSubmitForNewUser(realEmail: string) {
+    if (!pendingResetData || !formData.email) return;
+
+    try {
+      // Resend the email with the real email address
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          full_name: formData.full_name,
+          phone_number: formData.phone_number,
+          employee_id: formData.employee_id,
+          role_id: formData.role_id,
+          overrideEmail: realEmail,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send email');
+      }
+
+      // Show success
+      setTemporaryPassword(pendingResetData.temporaryPassword);
+      setEmailSent(true);
+      setIsNewUser(true);
+      setPasswordCopied(false);
+      setPasswordDisplayDialogOpen(true);
+      setPendingResetData(null);
+      
+      // Reset form
+      setFormData({
+        email: '',
+        full_name: '',
+        phone_number: '',
+        employee_id: '',
+        role_id: '',
+      });
+    } catch (error) {
+      console.error('Error sending demo email:', error);
+      throw error;
     }
   }
 
@@ -383,7 +462,7 @@ export default function UsersAdminPage() {
   }
 
   // Handle reset password
-  async function handleResetPassword() {
+  async function handleResetPassword(overrideEmail?: string) {
     if (!selectedUser) return;
 
     try {
@@ -392,12 +471,32 @@ export default function UsersAdminPage() {
 
       const response = await fetch(`/api/admin/users/${selectedUser.id}/reset-password`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          overrideEmail,
+        }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
         throw new Error(result.error || 'Failed to reset password');
+      }
+
+      // Check if this is a demo account and needs email override
+      if (result.isDemoAccount && !result.emailSent) {
+        // Store the password and show demo email modal
+        setPendingResetData({
+          userId: selectedUser.id,
+          temporaryPassword: result.temporaryPassword,
+        });
+        setDemoUserEmail(result.demoEmail);
+        setDemoUserName(getDemoUserName(result.demoEmail));
+        setDemoEmailModalOpen(true);
+        setResetPasswordDialogOpen(false);
+        return;
       }
 
       // Show new password to admin
@@ -413,6 +512,50 @@ export default function UsersAdminPage() {
       setFormError('Failed to reset password');
     } finally {
       setFormLoading(false);
+    }
+  }
+
+  // Handle demo email submission
+  async function handleDemoEmailSubmit(realEmail: string) {
+    if (!pendingResetData) return;
+
+    try {
+      const response = await fetch(`/api/admin/users/${pendingResetData.userId}/reset-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          overrideEmail: realEmail,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send email');
+      }
+
+      // Show success
+      setTemporaryPassword(pendingResetData.temporaryPassword);
+      setEmailSent(true);
+      setPasswordCopied(false);
+      setPasswordDisplayDialogOpen(true);
+      setPendingResetData(null);
+      
+      // Reset form if this was from new user creation
+      if (formData.email) {
+        setFormData({
+          email: '',
+          full_name: '',
+          phone_number: '',
+          employee_id: '',
+          role_id: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error sending demo email:', error);
+      throw error;
     }
   }
 
@@ -1165,6 +1308,18 @@ export default function UsersAdminPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Demo Email Modal */}
+      <DemoEmailModal
+        isOpen={demoEmailModalOpen}
+        onClose={() => {
+          setDemoEmailModalOpen(false);
+          setPendingResetData(null);
+        }}
+        onSubmit={handleDemoEmailSubmit}
+        demoUserName={demoUserName}
+        emailContext="password reset notification"
+      />
         </TabsContent>
 
         {/* Roles Tab Content */}
