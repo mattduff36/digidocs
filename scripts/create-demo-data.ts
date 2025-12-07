@@ -316,8 +316,7 @@ async function createDemoUsers() {
                   role: user.role,
                   role_id: roles.id,
                   employee_id: user.id,
-                  full_name: fullName,
-                  email: email
+                  full_name: fullName
                 }, { 
                   onConflict: 'id'
                 });
