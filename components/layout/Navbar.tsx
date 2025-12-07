@@ -270,7 +270,7 @@ export function Navbar() {
             <div className="flex items-center">
               <Link href="/dashboard" className="flex items-center space-x-2 group">
                 <div className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  MPDEE Digidocs
+                  DIGIDOCS
                 </div>
               </Link>
 
