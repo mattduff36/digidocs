@@ -350,7 +350,7 @@ export function Navbar() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setNotificationPanelOpen(!notificationPanelOpen)}
-                  className="text-slate-300 hover:text-white hover:bg-slate-800/50 relative"
+                  className="text-foreground/70 hover:text-foreground hover:bg-accent relative"
                   title="Notifications"
                 >
                   <Bell className="w-4 h-4" />
@@ -371,7 +371,7 @@ export function Navbar() {
                     // Refresh page to apply new view
                     setTimeout(() => window.location.reload(), 100);
                   }}>
-                    <SelectTrigger className="w-[140px] h-8 bg-slate-800/50 border-slate-600 text-slate-300 text-xs">
+                    <SelectTrigger className="w-[140px] h-8 bg-accent border-border text-foreground/70 text-xs">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -390,7 +390,7 @@ export function Navbar() {
                   variant="ghost"
                   size="sm"
                   onClick={handleSignOut}
-                  className="text-slate-300 hover:text-white hover:bg-slate-800/50"
+                  className="text-foreground/70 hover:text-foreground hover:bg-accent"
                   title="Sign Out"
                 >
                   <LogOut className="w-4 h-4" />
@@ -400,7 +400,7 @@ export function Navbar() {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 rounded-md text-slate-300 hover:bg-slate-800/50 hover:text-white"
+                className="md:hidden p-2 rounded-md text-foreground/70 hover:bg-accent hover:text-foreground"
               >
                 {mobileMenuOpen ? (
                   <X className="w-6 h-6" />
@@ -414,7 +414,7 @@ export function Navbar() {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
+          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* Dashboard */}
               {dashboardNav.map((item) => {
@@ -428,7 +428,7 @@ export function Navbar() {
                     className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                       isActive
                             ? 'bg-primary text-primary-foreground'
-                        : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
+                        : 'text-foreground/70 hover:bg-accent hover:text-foreground'
                     }`}
                     
                   >
@@ -450,7 +450,7 @@ export function Navbar() {
                     className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                       isActive
                             ? 'bg-primary text-primary-foreground'
-                        : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
+                        : 'text-foreground/70 hover:bg-accent hover:text-foreground'
                     }`}
                     
                   >
@@ -536,7 +536,7 @@ export function Navbar() {
                         // Refresh page to apply new view
                         setTimeout(() => window.location.reload(), 100);
                       }}>
-                        <SelectTrigger className="w-full bg-slate-800/50 border-slate-600 text-slate-300">
+                        <SelectTrigger className="w-full bg-accent border-border text-foreground/70">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -554,7 +554,7 @@ export function Navbar() {
                 
                 <Button
                   variant="ghost"
-                  className="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800/50"
+                  className="w-full justify-start text-foreground/70 hover:text-foreground hover:bg-accent"
                   onClick={handleSignOut}
                 >
                   <LogOut className="w-4 h-4 mr-2" />

@@ -82,7 +82,7 @@ export function SidebarNav({ open, onToggle }: SidebarNavProps) {
 
       {/* Sidebar - Always visible on desktop, hidden on mobile */}
       <div
-        className={`hidden md:block fixed left-0 top-[68px] bottom-0 bg-slate-900 border-r border-slate-700 z-[70] transition-all duration-300 ease-in-out ${
+        className={`hidden md:block fixed left-0 top-[68px] bottom-0 bg-card border-r border-border z-[70] transition-all duration-300 ease-in-out ${
           open ? 'w-64' : 'w-16'
         }`}
       >
@@ -97,7 +97,7 @@ export function SidebarNav({ open, onToggle }: SidebarNavProps) {
             variant="ghost"
             size="sm"
             onClick={onToggle}
-            className="text-slate-300 hover:text-white hover:bg-slate-800"
+            className="text-foreground/70 hover:text-foreground hover:bg-accent"
             title={open ? 'Collapse menu' : 'Expand menu'}
           >
             <PanelLeftClose className={`h-5 w-5 transition-transform duration-300 ${open ? '' : 'rotate-180'}`} />
@@ -126,8 +126,8 @@ export function SidebarNav({ open, onToggle }: SidebarNavProps) {
                       open ? 'gap-3 px-3 py-2' : 'justify-center py-3'
                     } ${
                       isActive
-                        ? 'bg-avs-yellow text-slate-900 [&>svg]:text-slate-900'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                        ? 'bg-primary text-primary-foreground [&>svg]:text-primary-foreground'
+                        : 'text-foreground/70 hover:bg-accent hover:text-foreground'
                     }`}
                   >
                     <Icon className={open ? 'w-4 h-4' : 'w-5 h-5'} />
@@ -163,8 +163,8 @@ export function SidebarNav({ open, onToggle }: SidebarNavProps) {
                         open ? 'gap-3 px-3 py-2' : 'justify-center py-3'
                       } ${
                         isActive
-                          ? 'bg-avs-yellow text-slate-900 [&>svg]:text-slate-900'
-                          : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          ? 'bg-primary text-primary-foreground [&>svg]:text-primary-foreground'
+                          : 'text-foreground/70 hover:bg-accent hover:text-foreground'
                       }`}
                     >
                       <Icon className={open ? 'w-4 h-4' : 'w-5 h-5'} />
@@ -197,7 +197,7 @@ export function SidebarNav({ open, onToggle }: SidebarNavProps) {
                   } ${
                     pathname === '/debug'
                       ? 'bg-orange-500 text-white'
-                      : 'text-orange-300 hover:bg-slate-800 hover:text-orange-200'
+                      : 'text-orange-400 hover:bg-accent hover:text-orange-300'
                   }`}
                 >
                   <Bug className={open ? 'w-4 h-4' : 'w-5 h-5'} />
