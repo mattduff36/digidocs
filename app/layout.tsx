@@ -13,13 +13,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MPDEE Digidocs",
+  title: "MPDEE DIGIDOCS",
   description: "Digital workforce management system for timesheets, inspections, and documents",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "MPDEE Digidocs",
+    title: "MPDEE DIGIDOCS",
   },
 };
 

@@ -33,7 +33,7 @@ export default function Home() {
         {/* Logo/Brand */}
         <div className="space-y-2">
           <h1 className="text-4xl font-bold text-foreground">
-            MPDEE Digidocs
+            MPDEE DIGIDOCS
           </h1>
           <p className="text-muted-foreground text-lg">
             Digital Workforce Management
