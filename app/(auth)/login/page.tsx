@@ -76,35 +76,32 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-start justify-center p-4 pt-12 sm:pt-16 md:pt-24 relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(241,214,74,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(241,214,74,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
+    <div className="min-h-screen flex items-start justify-center p-4 pt-12 sm:pt-16 md:pt-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-md relative z-10">
-        {/* AVS Yellow Icon */}
+        {/* Brand Icon */}
         <div className="flex justify-center mb-6">
-          <div className="bg-avs-yellow rounded-2xl p-5 shadow-lg shadow-avs-yellow/20">
-            <Lock className="h-10 w-10 text-slate-900" strokeWidth={2.5} />
+          <div className="bg-primary rounded-2xl p-5 shadow-lg shadow-primary/20">
+            <Lock className="h-10 w-10 text-primary-foreground" strokeWidth={2.5} />
           </div>
         </div>
 
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">SQUIRES</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2">MPDEE Digidocs</h1>
         </div>
 
-        {/* Glass-morphism Card */}
-        <Card className="bg-slate-800/40 backdrop-blur-xl border-slate-700/50 shadow-2xl">
+        {/* Login Card */}
+        <Card className="bg-card border-border shadow-2xl">
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="p-3 text-sm text-red-300 bg-red-900/30 border border-red-700/50 rounded-lg backdrop-blur-sm">
+                <div className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700/50 rounded-lg">
                   {error}
                 </div>
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300 font-medium">Email Address</Label>
+                <Label htmlFor="email" className="text-foreground font-medium">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
@@ -113,12 +110,12 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={loading}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-avs-yellow focus:ring-avs-yellow/20 h-12"
+                  className="bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-12"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-slate-300 font-medium">Password</Label>
+                <Label htmlFor="password" className="text-foreground font-medium">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -127,7 +124,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={loading}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-avs-yellow focus:ring-avs-yellow/20 h-12"
+                  className="bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-12"
                 />
               </div>
 
@@ -137,12 +134,12 @@ export default function LoginPage() {
                   id="remember"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-600 bg-slate-700/50 text-avs-yellow focus:ring-avs-yellow focus:ring-offset-slate-800"
+                  className="w-4 h-4 rounded border-input bg-background text-primary focus:ring-primary focus:ring-offset-background"
                   disabled={loading}
                 />
                 <Label 
                   htmlFor="remember" 
-                  className="text-sm font-normal cursor-pointer text-slate-300"
+                  className="text-sm font-normal cursor-pointer text-foreground"
                 >
                   Keep me signed in
                 </Label>
@@ -150,8 +147,7 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-avs-yellow hover:bg-avs-yellow-hover font-semibold text-base shadow-lg shadow-avs-yellow/20 transition-all"
-                style={{ color: 'rgb(15 23 42)' }}
+                className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base shadow-lg shadow-primary/20 transition-all"
                 disabled={loading}
               >
                 {loading ? 'Signing in...' : 'Sign In'}
@@ -160,7 +156,7 @@ export default function LoginPage() {
           </CardContent>
         </Card>
 
-        <div className="mt-6 text-center text-sm text-slate-400">
+        <div className="mt-6 text-center text-sm text-muted-foreground">
           <p>Contact your administrator for account access</p>
         </div>
       </div>

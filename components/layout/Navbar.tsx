@@ -225,7 +225,7 @@ export function Navbar() {
   const allEmployeeNav = [
     { href: '/timesheets', label: 'Timesheets', icon: FileText, module: 'timesheets' as ModuleName },
     { href: '/inspections', label: 'Inspections', icon: ClipboardCheck, module: 'inspections' as ModuleName },
-    { href: '/rams', label: 'RAMS', icon: CheckSquare, module: 'rams' as ModuleName },
+    { href: '/rams', label: 'Documents', icon: CheckSquare, module: 'rams' as ModuleName },
     { href: '/absence', label: 'Absence', icon: Calendar, module: 'absence' as ModuleName },
   ];
 
@@ -262,15 +262,15 @@ export function Navbar() {
       {/* Sidebar for Manager/Admin (desktop) */}
       <SidebarNav open={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-      <nav className="bg-slate-900/50 backdrop-blur-xl border-b border-slate-700/50 sticky top-0 z-50">
-        {/* AVS Yellow accent strip */}
-        <div className="h-1 bg-gradient-to-r from-avs-yellow via-avs-yellow to-avs-yellow-hover"></div>
+      <nav className="bg-background/95 backdrop-blur-xl border-b border-border sticky top-0 z-50">
+        {/* Brand accent strip */}
+        <div className="h-1 bg-gradient-to-r from-primary via-primary to-primary/80"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link href="/dashboard" className="flex items-center space-x-2 group">
-                <div className="text-xl font-bold text-white group-hover:text-avs-yellow transition-colors">
-                  SQUIRES
+                <div className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                  MPDEE Digidocs
                 </div>
               </Link>
 
@@ -286,12 +286,12 @@ export function Navbar() {
                       href={item.href}
                       className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                         isActive
-                          ? 'bg-avs-yellow'
+                          ? 'bg-primary text-primary-foreground'
                           : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                       }`}
-                      style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                      
                     >
-                      <Icon className="w-4 h-4 mr-2" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                      <Icon className="w-4 h-4 mr-2" />
                       {item.label}
                     </Link>
                   );
@@ -307,12 +307,12 @@ export function Navbar() {
                       href={item.href}
                       className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                         isActive
-                          ? 'bg-avs-yellow'
+                          ? 'bg-primary text-primary-foreground'
                           : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                       }`}
-                      style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                      
                     >
-                      <Icon className="w-4 h-4 mr-2" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                      <Icon className="w-4 h-4 mr-2" />
                       {item.label}
                     </Link>
                   );
@@ -427,12 +427,12 @@ export function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                       isActive
-                        ? 'bg-avs-yellow'
+                            ? 'bg-primary text-primary-foreground'
                         : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                     }`}
-                    style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                    
                   >
-                    <Icon className="w-5 h-5 mr-3" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                    <Icon className="w-5 h-5 mr-3" />
                     {item.label}
                   </Link>
                 );
@@ -449,12 +449,12 @@ export function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                       isActive
-                        ? 'bg-avs-yellow'
+                            ? 'bg-primary text-primary-foreground'
                         : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                     }`}
-                    style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                    
                   >
-                    <Icon className="w-5 h-5 mr-3" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                    <Icon className="w-5 h-5 mr-3" />
                     {item.label}
                   </Link>
                 );
@@ -479,12 +479,12 @@ export function Navbar() {
                         onClick={() => setMobileMenuOpen(false)}
                         className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                           isActive
-                            ? 'bg-avs-yellow'
+                            ? 'bg-primary text-primary-foreground'
                             : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                         }`}
-                        style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                        
                       >
-                        <Icon className="w-5 h-5 mr-3" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                        <Icon className="w-5 h-5 mr-3" />
                         {item.label}
                       </Link>
                     );
@@ -506,12 +506,12 @@ export function Navbar() {
                             onClick={() => setMobileMenuOpen(false)}
                             className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${
                               isActive
-                                ? 'bg-avs-yellow'
+                                ? 'bg-primary text-primary-foreground'
                                 : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
                             }`}
-                            style={isActive ? { color: 'rgb(15 23 42)' } : {}}
+                            
                           >
-                            <Icon className="w-5 h-5 mr-3" style={isActive ? { color: 'rgb(15 23 42)' } : {}} />
+                            <Icon className="w-5 h-5 mr-3" />
                             {item.label}
                           </Link>
                         );

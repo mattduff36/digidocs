@@ -1,6 +1,6 @@
 {
-  "name": "avsworklog",
-  "version": "0.1.0",
+  "name": "digidocs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -19,6 +19,7 @@
     "seed:inspections-sql": "tsx scripts/seed-inspections-sql.ts",
     "migrate": "tsx scripts/run-migration.ts",
     "migrate:day-of-week": "tsx scripts/run-day-of-week-migration.ts",
+    "import:database": "tsx scripts/import-skeleton-database.ts",
     "test:reports": "tsx scripts/test-reports.ts",
     "test:processed-status": "tsx scripts/test-processed-status.ts"
   },

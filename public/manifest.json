@@ -1,12 +1,12 @@
 {
-  "name": "Squires",
-  "short_name": "Squires",
-  "description": "Digital forms management for A&V Squires Plant Co. Ltd.",
+  "name": "MPDEE Digidocs",
+  "short_name": "Digidocs",
+  "description": "Digital workforce management system for timesheets, inspections, and documents",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#F1D64A",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
   "icons": [
     {

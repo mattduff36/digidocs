@@ -1,26 +1,27 @@
-# AVS Worklog
+# MPDEE Digidocs
 
-**Live at: [avsworklog.mpdee.uk](https://avsworklog.mpdee.uk)**
+Digital workforce management system for timesheets, inspections, documents, and absence tracking.
 
-Digital forms management system for A&V Squires Plant Co. Ltd.
-
-A Progressive Web App (PWA) for managing employee timesheets and vehicle inspections with offline support, real-time synchronization, and comprehensive reporting.
+A Progressive Web App (PWA) for managing employee workflows with offline support, real-time synchronization, and comprehensive reporting.
 
 ## Features
 
 - **Employee Timesheets**: Digital weekly timesheets with auto-calculated hours
 - **Vehicle Inspections**: 26-point safety inspection checklists
+- **Document Management**: Safety documents, risk assessments, and compliance forms
+- **Absence Tracking**: Holiday and leave request management
 - **Offline Support**: Work without internet, sync when connected
 - **Real-time Updates**: Changes sync across devices instantly
 - **Role-Based Access**: Admin, Manager, and Employee permissions
 - **Digital Signatures**: Secure employee sign-offs
 - **PDF & Excel Reports**: Generate professional reports
 - **Mobile-First Design**: Optimized for tablets and smartphones
+- **Light & Dark Themes**: Automatic theme switching based on device settings
 
 ## Tech Stack
 
 - **Frontend**: Next.js 15 (App Router), React 19, TypeScript
-- **UI**: Tailwind CSS 4, shadcn/ui components
+- **UI**: Tailwind CSS 4, shadcn/ui components, Radix UI
 - **Backend**: Supabase (PostgreSQL, Auth, Realtime, Storage)
 - **State Management**: TanStack Query, Zustand
 - **Forms**: React Hook Form + Zod validation
@@ -37,33 +38,37 @@ A Progressive Web App (PWA) for managing employee timesheets and vehicle inspect
 
 ### 1. Clone and Install
 
-\`\`\`bash
+```bash
 git clone <repository-url>
-cd avsworklog
+cd digidocs
 npm install
-\`\`\`
+```
 
 ### 2. Set Up Supabase
 
 1. Go to [supabase.com](https://supabase.com) and create a new project
 2. Wait for the database to be ready (2-3 minutes)
 3. Go to **SQL Editor** in your Supabase dashboard
-4. Copy and paste the entire contents of `supabase/schema.sql`
+4. Copy and paste the entire contents of `database_exports/database-skeleton-export.sql`
 5. Click "Run" to execute the schema
+6. Follow the storage setup guide in `database_exports/DATABASE-EXPORT-README.md`
 
 ### 3. Configure Environment Variables
 
 Create a `.env.local` file in the root directory:
 
-\`\`\`env
+```env
 # Get these from Supabase Dashboard > Settings > API
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
+# Optional: For direct database access (migrations)
+POSTGRES_URL_NON_POOLING=your_postgres_connection_string
+
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-\`\`\`
+```
 
 **Finding your Supabase credentials:**
 - Go to your Supabase project
@@ -79,31 +84,27 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 4. After user is created, go to **SQL Editor**
 5. Run this query (replace with your user's ID):
 
-\`\`\`sql
+```sql
 UPDATE profiles 
-SET role = 'admin' 
+SET role = 'admin', 
+    role_id = (SELECT id FROM roles WHERE name = 'admin')
 WHERE id = 'paste-user-id-here';
-\`\`\`
+```
 
 You can find the user ID in Authentication > Users table.
 
 ### 5. Run Development Server
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 Open [http://localhost:3000](http://localhost:3000) and sign in with your admin account.
 
-## Recent Enhancements
-
-- **RAMS documents**: Simplified read flow with explicit **Download**, **Open**, and **Email** actions, and action tracking for how each document was accessed in RAMS PDF exports.
-- **Timesheet PDFs**: Driver name now comes from the employee profile and displays correctly in both the top **Driver** field and the footer signature row.
-
 ## Project Structure
 
-\`\`\`
-avsworklog/
+```
+digidocs/
 ├── app/                          # Next.js App Router
 │   ├── (auth)/                  # Authentication pages
 │   │   └── login/              
@@ -111,6 +112,8 @@ avsworklog/
 │   │   ├── dashboard/           # Main dashboard
 │   │   ├── timesheets/          # Timesheet management
 │   │   ├── inspections/         # Vehicle inspections
+│   │   ├── rams/                # Document management
+│   │   ├── absence/             # Absence tracking
 │   │   ├── reports/             # Reports & exports
 │   │   └── admin/               # Admin pages
 │   ├── api/                     # API routes
@@ -127,9 +130,9 @@ avsworklog/
 │   ├── hooks/                   # React hooks
 │   └── stores/                  # Zustand stores
 ├── types/                       # TypeScript type definitions
-├── supabase/                    # Database schema
+├── database_exports/            # Database schema and setup guides
 └── public/                      # Static assets & PWA files
-\`\`\`
+```
 
 ## Usage
 
@@ -147,13 +150,17 @@ avsworklog/
    - Mark daily checks (✓/X/0)
    - Add photos for defects
    - Submit
+4. **Documents**:
+   - View assigned safety documents
+   - Read and sign when required
 
 ### For Managers
 
 1. View all submitted timesheets and inspections
 2. Review and approve/reject forms
 3. Add comments for rejected forms
-4. Generate reports for date ranges
+4. Upload and assign documents to employees
+5. Generate reports for date ranges
 
 ### For Admins
 
@@ -161,82 +168,26 @@ avsworklog/
 - User management
 - Add/edit vehicles
 - System configuration
-
-## 📱 PWA Installation & Offline Mode
-
-### Installing on iPhone (iOS)
-
-**⚠️ IMPORTANT**: PWA only works on the **production site**, not localhost!
-
-1. **Open Safari** (must use Safari, not Chrome)
-2. **Navigate to**: [https://avsworklog.mpdee.uk](https://avsworklog.mpdee.uk)
-3. **Tap the Share button** ⬆️ (bottom toolbar)
-4. **Scroll down** and tap **"Add to Home Screen"**
-5. **Tap "Add"** in the top right
-6. **Icon appears** on your home screen with "Squires" name
-
-### Installing on Android
-
-1. Open Chrome browser
-2. Navigate to [https://avsworklog.mpdee.uk](https://avsworklog.mpdee.uk)
-3. Tap menu (⋮) → "Add to Home screen" or "Install app"
-4. Follow the prompts
-
-### Offline Features
-
-**⚠️ Current Status: Partial Offline Support**
-
-What works offline:
-✅ **Create timesheets offline** - saved locally, synced when online  
-✅ **Create inspections offline** - queued for automatic sync  
-✅ **Automatic sync** - happens seamlessly when connection restored  
-✅ **Persistent queue** - survives browser restarts  
-✅ **Visual feedback** - offline indicator in navbar shows pending items  
-
-**Known Issue (iOS):**
-❌ **Navigation between pages offline** - iOS Safari doesn't load cached pages properly  
-❌ **Opening app from home screen offline** - Shows "no internet" message
-
-**What this means**: You can still create forms offline if you're already on the form page, but you can't browse between different pages (like from Dashboard to Timesheets) when offline. This is an iOS Safari limitation we're working to resolve.
-
-### Testing Offline Mode
-
-**Desktop (Chrome):**
-1. Open Chrome DevTools → Network tab
-2. Set throttling to "Offline"
-3. Navigate to timesheet/inspection form
-4. Create a form - it will queue
-5. Set back to "Online"
-6. Watch it sync automatically! 🎉
-
-**Mobile (Limited):**
-Currently, the offline features work best when you're already on a form page and lose connection. Full offline navigation is not yet working on iOS Safari.
-
-For details on this issue and attempted fixes, see `docs/OFFLINE_PWA_IMPLEMENTATION.md`.
+- Role and permission management
 
 ## Development
 
 ### Adding New Form Fields
 
-1. Update database schema in `supabase/schema.sql`
+1. Update database schema in `database_exports/database-skeleton-export.sql`
 2. Update TypeScript types in `types/`
 3. Modify form components in `components/forms/`
-4. Update validation schemas in `lib/utils/validators.ts`
+4. Update validation schemas in `lib/validation/`
 
 ### Running Tests
 
-\`\`\`bash
+```bash
 npm run lint        # Check code quality
+npm run test        # Run tests
 npm run build       # Test production build
-\`\`\`
+```
 
 ## Deployment
-
-### Production Site
-
-**Live at:** [https://avsworklog.mpdee.uk](https://avsworklog.mpdee.uk)
-
-The application is deployed on Vercel with automatic deployments from the `main` branch.
 
 ### Deploy to Vercel
 
@@ -257,7 +208,7 @@ Vercel will automatically:
 In Vercel dashboard:
 - Go to Settings > Environment Variables
 - Add all variables from `.env.local`
-- Update `NEXT_PUBLIC_APP_URL` to your production URL (https://avsworklog.mpdee.uk)
+- Update `NEXT_PUBLIC_APP_URL` to your production URL
 
 ## Troubleshooting
 
@@ -265,13 +216,6 @@ In Vercel dashboard:
 - Ensure profile was created in database
 - Check Supabase triggers are working
 - Manually create profile if needed
-
-### Offline sync not working
-- **Must use production site** (https://avsworklog.mpdee.uk) - localhost/dev won't work!
-- Check browser console for errors
-- Verify service worker is registered: open DevTools → Application → Service Workers
-- Clear browser cache and reload
-- Make sure PWA is installed from home screen, not Safari tab
 
 ### RLS policy errors
 - Verify user role in database
@@ -283,43 +227,19 @@ In Vercel dashboard:
 - Delete `.next` folder
 - Check for TypeScript errors
 
-## Support
-
-For issues or questions:
-1. Check existing documentation
-2. Review Supabase logs
-3. Check browser console
-4. Contact system administrator
-
 ## License
 
-Proprietary - A&V Squires Plant Co. Ltd.
+Proprietary - MPDEE Ltd.
 
 ## Version
 
-**v1.1.1** - Bug Fixes & Improvements (November 2025)
-- Fixed admin account creation issues
-- Improved user management functionality
-- Enhanced error handling
-
-**v1.1.0** - Complete Offline PWA Release (October 30, 2025)
-- ✅ Full offline PWA functionality
-- ✅ Automatic sync when reconnected
-- ✅ Real-time updates across devices
-- ✅ Toast notifications for all status changes
-- ✅ Vehicle management system
-- ✅ Password management with email notifications
-- ✅ Bank holiday detection
-- ✅ Night shift automatic detection
-- ✅ Comprehensive Excel & PDF reporting
-
-**v1.0.0** - MVP Release (October 24, 2025)
-- Employee timesheets
-- Vehicle inspections
-- Basic reporting
-- Manager approval workflow
-- Digital signatures
+**v2.0.0** - Skeleton Release (December 2025)
+- Converted from SquiresApp to reusable skeleton
+- Neutral branding and theme
+- Light and dark mode support
+- Renamed RAMS to Documents
+- Updated all configuration and documentation
 
 ---
 
-**Built with** ❤️ **for A&V Squires Plant Co. Ltd.**
+**Built by MPDEE Ltd.** for rapid client deployment

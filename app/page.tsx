@@ -28,24 +28,24 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center space-y-6">
         {/* Logo/Brand */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold text-white">
-            Squires
+          <h1 className="text-4xl font-bold text-foreground">
+            MPDEE Digidocs
           </h1>
-          <p className="text-slate-400 text-lg">
-            Digital Forms Management
+          <p className="text-muted-foreground text-lg">
+            Digital Workforce Management
           </p>
         </div>
 
         {/* Info Card */}
-        <div className="bg-slate-800/30 backdrop-blur border border-slate-700 rounded-lg p-6 space-y-4">
-          <p className="text-slate-300 text-sm">
+        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
+          <p className="text-foreground text-sm">
             Opening your dashboard...
           </p>
-          <p className="text-slate-400 text-xs">
+          <p className="text-muted-foreground text-xs">
             This app requires an internet connection to work.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function Home() {
         <Button
           onClick={handleGoToDashboard}
           size="lg"
-          className="w-full bg-avs-yellow text-slate-900 hover:bg-avs-yellow/90 font-semibold"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
         >
           Go to Dashboard
         </Button>

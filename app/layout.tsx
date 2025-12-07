@@ -13,13 +13,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Squires - A&V Squires Plant Co. Ltd.",
-  description: "Digital forms management system for timesheets and vehicle inspections",
+  title: "MPDEE Digidocs",
+  description: "Digital workforce management system for timesheets, inspections, and documents",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Squires",
+    statusBarStyle: "default",
+    title: "MPDEE Digidocs",
   },
 };
 
@@ -28,7 +28,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#F1D64A",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" }
+  ],
 };
 
 export default function RootLayout({
@@ -37,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning style={{ colorScheme: 'dark' }}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
@@ -45,7 +48,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png" />
-        <meta name="color-scheme" content="dark" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              document.documentElement.classList.add(theme);
+            })();
+          `
+        }} />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ErrorLoggerInit />

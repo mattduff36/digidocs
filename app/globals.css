@@ -1,93 +1,87 @@
 @import "tailwindcss";
 
-/* AVS Squires Brand Colors - Inspired by avs.mpdee.co.uk */
-/* FORCED DARK MODE - All variables set to match slate-900 exactly */
+/* MPDEE Digidocs - Neutral Theme with Light/Dark Mode Support */
 @layer base {
   :root {
-    /* Force dark theme colors matching Tailwind slate palette exactly */
-    --background: 222 47% 11%; /* slate-900: rgb(15 23 42) */
-    --foreground: 210 40% 98%; /* slate-50 */
-    --card: 222 47% 11%; /* slate-900 */
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    /* Light theme colors (default) */
+    --background: 0 0% 100%; /* white */
+    --foreground: 222 47% 11%; /* slate-900 */
+    --card: 0 0% 100%; /* white */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
     
-    /* Primary - AVS Signature Yellow (#F1D64A) */
-    --primary: 48 87% 69%;
-    --primary-foreground: 222 47% 11%;
+    /* Primary - Professional Blue (#3b82f6) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Secondary - slate-800 */
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary - slate-100 */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
     
-    /* Muted - slate-800 */
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%; /* slate-400 */
+    /* Muted - slate-100 */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%; /* slate-600 */
     
-    /* Accent - slate-800 */
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    /* Accent - slate-100 */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
     
     /* Status colors */
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
     --success: 142 71% 45%;
     --warning: 38 92% 50%;
     --error: 0 84% 60%;
     
-    /* Document Type Colors - Unique per form type */
+    /* Document Type Colors */
     /* Timesheets - Professional Blue */
-    --timesheet-primary: 210 90% 50%;
-    --timesheet-light: 210 100% 96%;
-    --timesheet-dark: 210 90% 35%;
+    --timesheet-primary: 217 91% 60%;
+    --timesheet-light: 217 91% 95%;
+    --timesheet-dark: 217 91% 45%;
     
     /* Vehicle Inspections - Safety Orange/Amber */
     --inspection-primary: 30 95% 55%;
     --inspection-light: 30 100% 96%;
     --inspection-dark: 30 95% 40%;
     
-    /* RAMS Documents - Professional Green */
-    --rams-primary: 142 76% 36%;
-    --rams-light: 142 76% 95%;
-    --rams-dark: 142 76% 28%;
+    /* Documents (formerly RAMS) - Professional Green */
+    --document-primary: 142 76% 36%;
+    --document-light: 142 76% 95%;
+    --document-dark: 142 76% 28%;
     
     /* Absence & Leave - Purple */
     --absence-primary: 260 60% 50%;
     --absence-light: 260 60% 96%;
     --absence-dark: 260 60% 40%;
     
-    /* Reports - Professional Green */
-    --report-primary: 150 70% 45%;
-    --report-light: 150 100% 96%;
-    --report-dark: 150 70% 30%;
+    /* Reports - Professional Teal */
+    --report-primary: 173 58% 39%;
+    --report-light: 173 58% 96%;
+    --report-dark: 173 58% 30%;
     
     /* Admin/Management - Deep Purple */
     --admin-primary: 260 60% 50%;
     --admin-light: 260 100% 96%;
     --admin-dark: 260 60% 35%;
     
-    /* UI Elements - matching slate palette */
-    --border: 217 33% 17%; /* slate-800 */
-    --input: 217 33% 17%;
-    --ring: 48 87% 69%;
+    /* UI Elements */
+    --border: 214 32% 91%; /* slate-200 */
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
     --radius: 0.625rem;
-    
-    /* AVS Yellow variants */
-    --avs-yellow: 48 87% 69%; /* #F1D64A */
-    --avs-yellow-hover: 48 73% 56%; /* #d1b82f */
-    --avs-yellow-light: 48 100% 94%;
   }
 
   .dark {
-    /* Dark mode variables (same as root for consistency) */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    /* Dark mode colors */
+    --background: 222 47% 11%; /* slate-900 */
+    --foreground: 210 40% 98%; /* slate-50 */
     --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 48 87% 69%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
@@ -98,7 +92,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 48 87% 69%;
+    --ring: 217 91% 60%;
     --success: 142 71% 45%;
     --warning: 38 92% 50%;
     --error: 0 84% 60%;
@@ -111,259 +105,10 @@
   }
   
   body {
-    background: linear-gradient(135deg, rgb(15 23 42) 0%, rgb(30 41 59) 50%, rgb(51 65 85) 100%);
-    background-attachment: fixed;
+    background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
-    position: relative;
-  }
-  
-  /* Force all white and light backgrounds to dark - override light mode classes */
-  .bg-white {
-    background-color: rgb(15 23 42) !important; /* slate-900 */
-  }
-  
-  /* Force all light slate backgrounds to dark */
-  .bg-slate-50 {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
-  }
-  
-  .bg-slate-100 {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
-  }
-  
-  .bg-slate-200 {
-    background-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  .bg-slate-300 {
-    background-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  /* Ensure dark slate backgrounds are consistent */
-  .bg-slate-700 {
-    background-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  .bg-slate-800 {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
-  }
-  
-  .bg-slate-900 {
-    background-color: rgb(15 23 42) !important; /* slate-900 */
-  }
-  
-  /* Force light red backgrounds to dark red */
-  .bg-red-50 {
-    background-color: rgba(239, 68, 68, 0.1) !important; /* red-500/10 */
-  }
-  
-  .bg-red-100 {
-    background-color: rgba(239, 68, 68, 0.15) !important; /* red-500/15 */
-  }
-  
-  /* Force light blue backgrounds to dark blue */
-  .bg-blue-50 {
-    background-color: rgba(59, 130, 246, 0.1) !important; /* blue-500/10 */
-  }
-  
-  .bg-blue-100 {
-    background-color: rgba(59, 130, 246, 0.15) !important; /* blue-500/15 */
-  }
-  
-  .bg-blue-200 {
-    background-color: rgba(59, 130, 246, 0.2) !important; /* blue-500/20 */
-  }
-  
-  /* Force light amber/yellow backgrounds to dark amber */
-  .bg-amber-50 {
-    background-color: rgba(245, 158, 11, 0.1) !important; /* amber-500/10 */
-  }
-  
-  .bg-amber-100 {
-    background-color: rgba(245, 158, 11, 0.15) !important; /* amber-500/15 */
-  }
-  
-  .bg-yellow-50 {
-    background-color: rgba(234, 179, 8, 0.1) !important; /* yellow-500/10 */
-  }
-  
-  .bg-yellow-100 {
-    background-color: rgba(234, 179, 8, 0.15) !important; /* yellow-500/15 */
-  }
-  
-  /* Force light gray backgrounds to dark (if any gray classes exist) */
-  .bg-gray-50 {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
-  }
-  
-  .bg-gray-100 {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
-  }
-  
-  .bg-gray-200 {
-    background-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  /* Force light borders to dark slate colors */
-  .border-slate-200 {
-    border-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  .border-slate-300 {
-    border-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  .border-slate-600 {
-    border-color: rgb(71 85 105) !important; /* slate-600 */
-  }
-  
-  .border-slate-700 {
-    border-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  /* Force light blue borders to dark blue */
-  .border-blue-200 {
-    border-color: rgba(59, 130, 246, 0.3) !important; /* blue-500/30 */
-  }
-  
-  .border-blue-300 {
-    border-color: rgba(59, 130, 246, 0.4) !important; /* blue-500/40 */
-  }
-  
-  /* Force light amber borders to dark amber */
-  .border-amber-200 {
-    border-color: rgba(245, 158, 11, 0.3) !important; /* amber-500/30 */
-  }
-  
-  .border-amber-300 {
-    border-color: rgba(245, 158, 11, 0.4) !important; /* amber-500/40 */
-  }
-  
-  .border-yellow-200 {
-    border-color: rgba(234, 179, 8, 0.3) !important; /* yellow-500/30 */
-  }
-  
-  .border-yellow-300 {
-    border-color: rgba(234, 179, 8, 0.4) !important; /* yellow-500/40 */
-  }
-  
-  /* Force light text to appropriate dark mode colors */
-  .text-slate-300 {
-    color: rgb(203 213 225) !important; /* slate-300 */
-  }
-  
-  .text-slate-400 {
-    color: rgb(148 163 184) !important; /* slate-400 */
-  }
-  
-  .text-slate-500 {
-    color: rgb(148 163 184) !important; /* slate-400 */
-  }
-  
-  .text-slate-600 {
-    color: rgb(148 163 184) !important; /* slate-400 */
-  }
-  
-  .text-slate-700 {
-    color: rgb(203 213 225) !important; /* slate-300 - lighter for visibility */
-  }
-  
-  .text-slate-800 {
-    color: rgb(226 232 240) !important; /* slate-200 - very light */
-  }
-  
-  .text-slate-900 {
-    color: rgb(248 250 252) !important; /* slate-50 - white text */
-  }
-  
-  .text-white {
-    color: rgb(255 255 255) !important;
-  }
-  
-  /* Force gray text colors too */
-  .text-gray-600 {
-    color: rgb(148 163 184) !important; /* slate-400 */
-  }
-  
-  .text-gray-700 {
-    color: rgb(203 213 225) !important; /* slate-300 */
-  }
-  
-  .text-gray-900 {
-    color: rgb(248 250 252) !important; /* slate-50 */
-  }
-  
-  /* Force blue text colors to light blue for dark theme */
-  .text-blue-100 {
-    color: rgb(219 234 254) !important; /* blue-100 */
-  }
-  
-  .text-blue-200 {
-    color: rgb(191 219 254) !important; /* blue-200 */
-  }
-  
-  .text-blue-600 {
-    color: rgb(147 197 253) !important; /* blue-300 - lighter for visibility */
-  }
-  
-  .text-blue-700 {
-    color: rgb(191 219 254) !important; /* blue-200 - lighter for visibility */
-  }
-  
-  .text-blue-900 {
-    color: rgb(219 234 254) !important; /* blue-100 - light text */
-  }
-  
-  /* Force amber/yellow text colors to light amber for dark theme */
-  .text-amber-100 {
-    color: rgb(254 243 199) !important; /* amber-100 */
-  }
-  
-  .text-amber-200 {
-    color: rgb(253 230 138) !important; /* amber-200 */
-  }
-  
-  .text-amber-600 {
-    color: rgb(251 191 36) !important; /* amber-400 - lighter for visibility */
-  }
-  
-  .text-amber-700 {
-    color: rgb(252 211 77) !important; /* amber-300 - lighter for visibility */
-  }
-  
-  .text-amber-800 {
-    color: rgb(253 230 138) !important; /* amber-200 - lighter for visibility */
-  }
-  
-  .text-amber-900 {
-    color: rgb(254 243 199) !important; /* amber-100 - light text */
-  }
-  
-  .text-yellow-600 {
-    color: rgb(250 204 21) !important; /* yellow-400 - lighter for visibility */
-  }
-  
-  .text-yellow-700 {
-    color: rgb(253 224 71) !important; /* yellow-300 - lighter for visibility */
-  }
-  
-  .text-yellow-800 {
-    color: rgb(254 240 138) !important; /* yellow-200 - lighter for visibility */
-  }
-  
-  .text-yellow-900 {
-    color: rgb(254 249 195) !important; /* yellow-100 - light text */
-  }
-  
-  /* Force hover states to dark */
-  .hover\:bg-slate-100:hover {
-    background-color: rgb(51 65 85) !important; /* slate-700 */
-  }
-  
-  .hover\:bg-slate-800:hover {
-    background-color: rgb(30 41 59) !important; /* slate-800 */
   }
   
   /* Mobile View - 20% Smaller */
@@ -372,50 +117,24 @@
       font-size: 12.8px; /* 16px * 0.8 = 12.8px base */
     }
   }
-
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 100px,
-        rgba(241, 214, 74, 0.02) 100px,
-        rgba(241, 214, 74, 0.02) 102px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 100px,
-        rgba(241, 214, 74, 0.01) 100px,
-        rgba(241, 214, 74, 0.01) 102px
-      );
-    pointer-events: none;
-    z-index: -1;
-  }
 }
 
-/* AVS Yellow Custom Classes */
+/* Primary Color Custom Classes (Professional Blue) */
 @layer utilities {
-  .bg-avs-yellow {
-    background-color: #F1D64A;
+  .bg-primary-brand {
+    background-color: #3b82f6;
   }
   
-  .bg-avs-yellow-hover:hover {
-    background-color: #d1b82f;
+  .bg-primary-brand-hover:hover {
+    background-color: #2563eb;
   }
   
-  .text-avs-yellow {
-    color: #F1D64A;
+  .text-primary-brand {
+    color: #3b82f6;
   }
   
-  .border-avs-yellow {
-    border-color: #F1D64A;
+  .border-primary-brand {
+    border-color: #3b82f6;
   }
   
   /* Timesheet Colors */
@@ -502,25 +221,25 @@
     border-color: hsl(var(--admin-primary));
   }
   
-  /* RAMS Colors */
-  .bg-rams {
-    background-color: hsl(var(--rams-primary));
+  /* Document Colors (formerly RAMS) */
+  .bg-document {
+    background-color: hsl(var(--document-primary));
   }
   
-  .bg-rams-light {
-    background-color: hsl(var(--rams-light));
+  .bg-document-light {
+    background-color: hsl(var(--document-light));
   }
   
-  .bg-rams-dark {
-    background-color: hsl(var(--rams-dark));
+  .bg-document-dark {
+    background-color: hsl(var(--document-dark));
   }
   
-  .text-rams {
-    color: hsl(var(--rams-primary));
+  .text-document {
+    color: hsl(var(--document-primary));
   }
   
-  .border-rams {
-    border-color: hsl(var(--rams-primary));
+  .border-document {
+    border-color: hsl(var(--document-primary));
   }
   
   /* Absence Colors */
@@ -543,176 +262,24 @@
   .border-absence {
     border-color: hsl(var(--absence-primary));
   }
-  
-  /* Manager/Admin Notice/Comments Box - Solid background approach
-   * NOTE: These classes are deprecated. Use inline Tailwind classes instead:
-   * Light mode: "bg-amber-50 border-amber-200"
-   * Dark mode: "dark:bg-amber-950/20 dark:border-amber-900"
-   * Text: "text-amber-900 dark:text-amber-400" (title)
-   *       "text-amber-800 dark:text-amber-300" (content)
-   * 
-   * Example:
-   * <Card className="bg-white dark:bg-slate-900 border-amber-200 bg-amber-50 dark:bg-amber-950/20">
-   *   <CardHeader>
-   *     <CardTitle className="text-amber-900 dark:text-amber-400">Manager Comments</CardTitle>
-   *   </CardHeader>
-   *   <CardContent>
-   *     <p className="text-amber-800 dark:text-amber-300">{comments}</p>
-   *   </CardContent>
-   * </Card>
-   */
-  .manager-notice,
-  .admin-notice {
-    /* Fallback for any legacy usage - matches new inline approach */
-    background-color: rgb(254 252 232) !important; /* amber-50 for light mode */
-    border-color: rgb(254 215 170) !important; /* amber-200 */
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .manager-notice,
-    .admin-notice {
-      background-color: rgba(69 26 3 / 0.2) !important; /* amber-950/20 for dark mode */
-      border-color: rgb(120 53 15) !important; /* amber-900 */
-    }
-  }
-  
-  .manager-notice-title,
-  .admin-notice-title {
-    color: rgb(120 53 15) !important; /* amber-900 for light mode */
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .manager-notice-title,
-    .admin-notice-title {
-      color: rgb(251 191 36) !important; /* amber-400 for dark mode */
-    }
-  }
-  
-  .manager-notice-content,
-  .admin-notice-content {
-    color: rgb(146 64 14) !important; /* amber-800 for light mode */
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .manager-notice-content,
-    .admin-notice-content {
-      color: rgb(252 211 77) !important; /* amber-300 for dark mode */
-    }
-  }
-  
-  /* Tab Styling - Standard Approvals Page Pattern */
-  /* Use data-state="active" to match shadcn/ui tabs component */
-  [role="tab"][data-state="active"] {
-    background-color: hsl(var(--primary)) !important; /* AVS Yellow */
-    border-bottom: 2px solid hsl(var(--primary)) !important;
-  }
-  
-  /* Text color only for all children */
-  [role="tab"][data-state="active"],
-  [role="tab"][data-state="active"] *,
-  [role="tab"][data-state="active"] svg,
-  [role="tab"][data-state="active"] span {
-    color: rgb(15 23 42) !important; /* Dark slate text - same as sidebar */
-  }
-  
-  /* Custom tab colors for specific tabs */
-  [role="tab"][data-state="active"][data-tab="toolbox-talk"] {
-    background-color: rgb(220 38 38) !important; /* red-600 */
-    border-bottom-color: rgb(220 38 38) !important;
-  }
-  
-  [role="tab"][data-state="active"][data-tab="toolbox-talk"],
-  [role="tab"][data-state="active"][data-tab="toolbox-talk"] * {
-    color: white !important;
-  }
-  
-  [role="tab"][data-state="active"][data-tab="reminder"],
-  [role="tab"][data-state="active"][data-tab="reports"] {
-    background-color: #F1D64A !important; /* AVS Yellow */
-    border-bottom-color: #F1D64A !important;
-  }
-  
-  [role="tab"][data-state="active"][data-tab="reminder"],
-  [role="tab"][data-state="active"][data-tab="reminder"] *,
-  [role="tab"][data-state="active"][data-tab="reports"],
-  [role="tab"][data-state="active"][data-tab="reports"] * {
-    color: rgb(15 23 42) !important;
-  }
 }
 
-/*
- * MODAL & DIALOG STYLING
- * =======================
- * All modals and dialogs should have solid backgrounds for better
- * visibility and consistent experience across all pages.
- */
-
-[role="dialog"],
-[data-radix-dialog-content],
-.dialog-content {
-  background: rgb(15 23 42) !important; /* slate-900 */
-  border: 1px solid rgb(51 65 85) !important; /* slate-700 */
-}
-
-/* Ensure dialog overlays are visible but not too dark */
-[data-radix-dialog-overlay] {
-  background: rgba(0, 0, 0, 0.7) !important;
-  z-index: 90 !important;
-}
-
-/* Ensure dialog content is above overlay */
-[data-radix-dialog-content] {
-  z-index: 100 !important;
-}
-
-/*
- * STANDARD PAGE LAYOUT PATTERN
- * ============================
- * All list/index pages should follow this consistent pattern:
- * 
- * 1. Outer Container:
- *    <div className="space-y-6 max-w-6xl">
- * 
- * 2. Header Card:
- *    <div className="bg-white dark:bg-slate-900 rounded-lg p-6 border border-slate-200 dark:border-slate-700">
- *      - Title: text-3xl font-bold text-slate-900 dark:text-white mb-2
- *      - Description: text-slate-600 dark:text-slate-400
- *      - Buttons: bg-{formtype} hover:bg-{formtype}-dark text-white transition-all duration-200 active:scale-95 shadow-md hover:shadow-lg
- * 
- * 3. Search/Filter Card (if needed):
- *    <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
- *      - Input: bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white
- * 
- * 4. Empty State Card:
- *    <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
- *      <CardContent className="flex flex-col items-center justify-center py-12">
- *        - Icon: h-16 w-16 text-slate-400 mb-4
- *        - Title: text-lg font-semibold text-slate-900 dark:text-white mb-2
- *        - Description: text-slate-600 dark:text-slate-400 mb-4
- * 
- * 5. List Items Card:
- *    <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-{formtype}/50 transition-all duration-200 cursor-pointer">
- * 
- * Form type colors available: timesheet, inspection, rams, report, admin
- * Each has: --{formtype}-primary, --{formtype}-light, --{formtype}-dark
- */
-
-/* Custom scrollbar with AVS Yellow */
+/* Custom scrollbar with brand color */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #F1D64A;
+  background: hsl(var(--primary));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d1b82f;
+  background: hsl(var(--primary) / 0.8);
 }
 
 /* Smooth scrolling */
@@ -720,106 +287,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Global dark theme text styles for dashboard pages */
-h1, h2, h3, h4, h5, h6 {
-  @apply text-white;
-}
-
-/* Default text color for all elements */
-p, span, label, div {
-  @apply text-slate-300;
-}
-
-/* Placeholder text color - always grey */
-::placeholder {
-  color: rgb(148 163 184) !important; /* slate-400 - grey */
-  opacity: 0.8;
-}
-
-::-webkit-input-placeholder {
-  color: rgb(148 163 184) !important; /* slate-400 */
-  opacity: 0.8;
-}
-
-::-moz-placeholder {
-  color: rgb(148 163 184) !important; /* slate-400 */
-  opacity: 0.8;
-}
-
-:-ms-input-placeholder {
-  color: rgb(148 163 184) !important; /* slate-400 */
-  opacity: 0.8;
-}
-
-/* Override muted foreground globally */
-.text-muted-foreground {
-  color: rgb(148 163 184) !important; /* slate-400 */
-}
-
-/* Ensure medium/semibold text is also white */
-.font-medium, .font-semibold {
-  @apply text-white;
-}
-
-/* Card components - DEPRECATED: Use inline Tailwind classes instead
- * 
- * Standard card styling:
- * <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
- * 
- * This ensures:
- * - Solid backgrounds (no transparency)
- * - Consistent light/dark mode appearance
- * - Better readability and accessibility
- * - Uniform styling across all pages
- * 
- * The classes below are kept for backwards compatibility only.
- */
-.card, [class*="Card"] {
-  /* Fallback - prefer explicit Tailwind classes on components */
-  @apply bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.card:hover, [class*="Card"]:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
 /* Fix iOS Safari time input width overflow */
-input[type="time"] {
-  max-width: 100% !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  display: block !important;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* Constrain iOS Safari time input internal elements */
-input[type="time"]::-webkit-datetime-edit {
-  max-width: 100% !important;
-  width: 100% !important;
-  padding: 0 !important;
-  overflow: hidden;
-  display: block;
-}
-
-input[type="time"]::-webkit-datetime-edit-fields-wrapper {
-  max-width: 100% !important;
-  width: 100% !important;
-  padding: 0 !important;
-}
-
-input[type="time"]::-webkit-datetime-edit-text {
-  padding: 0 2px;
-}
-
-input[type="time"]::-webkit-datetime-edit-hour-field,
-input[type="time"]::-webkit-datetime-edit-minute-field {
-  padding: 0 !important;
-}
-
-/* Fix iOS Safari date input width overflow - same treatment as time inputs */
+input[type="time"],
 input[type="date"] {
   max-width: 100% !important;
   width: 100% !important;
@@ -829,6 +298,7 @@ input[type="date"] {
   appearance: none;
 }
 
+input[type="time"]::-webkit-datetime-edit,
 input[type="date"]::-webkit-datetime-edit {
   max-width: 100% !important;
   width: 100% !important;
@@ -837,103 +307,74 @@ input[type="date"]::-webkit-datetime-edit {
   display: block;
 }
 
+input[type="time"]::-webkit-datetime-edit-fields-wrapper,
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   max-width: 100% !important;
   width: 100% !important;
   padding: 0 !important;
 }
 
-input[type="date"]::-webkit-datetime-edit-text {
-  padding: 0 2px;
-}
-
-input[type="date"]::-webkit-datetime-edit-day-field,
-input[type="date"]::-webkit-datetime-edit-month-field,
-input[type="date"]::-webkit-datetime-edit-year-field {
-  padding: 0 !important;
-}
-
 /* Mobile View - Scale down all elements by 20% */
 @media (max-width: 768px) {
-  /* Scale down specific height classes */
-  .h-10 { height: 2rem !important; } /* 40px -> 32px */
-  .h-12 { height: 2.4rem !important; } /* 48px -> 38.4px */
-  .h-14 { height: 2.8rem !important; } /* 56px -> 44.8px */
+  .h-10 { height: 2rem !important; }
+  .h-12 { height: 2.4rem !important; }
+  .h-14 { height: 2.8rem !important; }
   
-  /* Scale down text sizes */
-  .text-base { font-size: 0.8rem !important; } /* 16px -> 12.8px */
-  .text-lg { font-size: 0.9rem !important; } /* 18px -> 14.4px */
-  .text-xl { font-size: 1rem !important; } /* 20px -> 16px */
-  .text-2xl { font-size: 1.2rem !important; } /* 24px -> 19.2px */
-  .text-3xl { font-size: 1.5rem !important; } /* 30px -> 24px */
-  .text-xs { font-size: 0.6rem !important; } /* 12px -> 9.6px */
-  .text-sm { font-size: 0.7rem !important; } /* 14px -> 11.2px */
+  .text-base { font-size: 0.8rem !important; }
+  .text-lg { font-size: 0.9rem !important; }
+  .text-xl { font-size: 1rem !important; }
+  .text-2xl { font-size: 1.2rem !important; }
+  .text-3xl { font-size: 1.5rem !important; }
+  .text-xs { font-size: 0.6rem !important; }
+  .text-sm { font-size: 0.7rem !important; }
   
-  /* Scale down padding */
-  .p-3 { padding: 0.6rem !important; } /* 12px -> 9.6px */
-  .p-4 { padding: 0.8rem !important; } /* 16px -> 12.8px */
-  .p-5 { padding: 1rem !important; } /* 20px -> 16px */
-  .p-6 { padding: 1.2rem !important; } /* 24px -> 19.2px */
-  .p-8 { padding: 1.6rem !important; } /* 32px -> 25.6px */
+  .p-3 { padding: 0.6rem !important; }
+  .p-4 { padding: 0.8rem !important; }
+  .p-5 { padding: 1rem !important; }
+  .p-6 { padding: 1.2rem !important; }
+  .p-8 { padding: 1.6rem !important; }
   
-  .py-2 { padding-top: 0.4rem !important; padding-bottom: 0.4rem !important; } /* 8px -> 6.4px */
-  .py-3 { padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; } /* 12px -> 9.6px */
-  .py-4 { padding-top: 0.8rem !important; padding-bottom: 0.8rem !important; } /* 16px -> 12.8px */
+  .py-2 { padding-top: 0.4rem !important; padding-bottom: 0.4rem !important; }
+  .py-3 { padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; }
+  .py-4 { padding-top: 0.8rem !important; padding-bottom: 0.8rem !important; }
   
-  .px-3 { padding-left: 0.6rem !important; padding-right: 0.6rem !important; } /* 12px -> 9.6px */
-  .px-4 { padding-left: 0.8rem !important; padding-right: 0.8rem !important; } /* 16px -> 12.8px */
-  .px-6 { padding-left: 1.2rem !important; padding-right: 1.2rem !important; } /* 24px -> 19.2px */
+  .px-3 { padding-left: 0.6rem !important; padding-right: 0.6rem !important; }
+  .px-4 { padding-left: 0.8rem !important; padding-right: 0.8rem !important; }
+  .px-6 { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
   
-  /* Scale down gaps */
-  .gap-2 { gap: 0.4rem !important; } /* 8px -> 6.4px */
-  .gap-3 { gap: 0.6rem !important; } /* 12px -> 9.6px */
-  .gap-4 { gap: 0.8rem !important; } /* 16px -> 12.8px */
-  .gap-6 { gap: 1.2rem !important; } /* 24px -> 19.2px */
+  .gap-2 { gap: 0.4rem !important; }
+  .gap-3 { gap: 0.6rem !important; }
+  .gap-4 { gap: 0.8rem !important; }
+  .gap-6 { gap: 1.2rem !important; }
   
-  /* Scale down margins */
-  .mb-2 { margin-bottom: 0.4rem !important; } /* 8px -> 6.4px */
-  .mb-3 { margin-bottom: 0.6rem !important; } /* 12px -> 9.6px */
-  .mb-4 { margin-bottom: 0.8rem !important; } /* 16px -> 12.8px */
-  .mb-6 { margin-bottom: 1.2rem !important; } /* 24px -> 19.2px */
-  .mb-8 { margin-bottom: 1.6rem !important; } /* 32px -> 25.6px */
+  .mb-2 { margin-bottom: 0.4rem !important; }
+  .mb-3 { margin-bottom: 0.6rem !important; }
+  .mb-4 { margin-bottom: 0.8rem !important; }
+  .mb-6 { margin-bottom: 1.2rem !important; }
+  .mb-8 { margin-bottom: 1.6rem !important; }
   
-  .mt-2 { margin-top: 0.4rem !important; } /* 8px -> 6.4px */
-  .mt-4 { margin-top: 0.8rem !important; } /* 16px -> 12.8px */
-  .mt-6 { margin-top: 1.2rem !important; } /* 24px -> 19.2px */
+  .mt-2 { margin-top: 0.4rem !important; }
+  .mt-4 { margin-top: 0.8rem !important; }
+  .mt-6 { margin-top: 1.2rem !important; }
   
-  /* Scale down icons */
-  .h-4 { height: 0.8rem !important; } /* 16px -> 12.8px */
-  .w-4 { width: 0.8rem !important; } /* 16px -> 12.8px */
-  .h-5 { height: 1rem !important; } /* 20px -> 16px */
-  .w-5 { width: 1rem !important; } /* 20px -> 16px */
-  .h-6 { height: 1.2rem !important; } /* 24px -> 19.2px */
-  .w-6 { width: 1.2rem !important; } /* 24px -> 19.2px */
-  .h-8 { height: 1.6rem !important; } /* 32px -> 25.6px */
-  .w-8 { width: 1.6rem !important; } /* 32px -> 25.6px */
+  .h-4 { height: 0.8rem !important; }
+  .w-4 { width: 0.8rem !important; }
+  .h-5 { height: 1rem !important; }
+  .w-5 { width: 1rem !important; }
+  .h-6 { height: 1.2rem !important; }
+  .w-6 { width: 1.2rem !important; }
+  .h-8 { height: 1.6rem !important; }
+  .w-8 { width: 1.6rem !important; }
   
-  /* Scale down button-like elements */
-  .w-10 { width: 2rem !important; } /* 40px -> 32px */
+  .w-10 { width: 2rem !important; }
   
-  /* Scale down space-y (vertical spacing between children) */
-  .space-y-2 > * + * { margin-top: 0.4rem !important; } /* 8px -> 6.4px */
-  .space-y-3 > * + * { margin-top: 0.6rem !important; } /* 12px -> 9.6px */
-  .space-y-4 > * + * { margin-top: 0.8rem !important; } /* 16px -> 12.8px */
-  .space-y-6 > * + * { margin-top: 1.2rem !important; } /* 24px -> 19.2px */
+  .space-y-2 > * + * { margin-top: 0.4rem !important; }
+  .space-y-3 > * + * { margin-top: 0.6rem !important; }
+  .space-y-4 > * + * { margin-top: 0.8rem !important; }
+  .space-y-6 > * + * { margin-top: 1.2rem !important; }
   
-  /* Scale down rounded corners */
-  .rounded-lg { border-radius: 0.4rem !important; } /* 8px -> 6.4px */
-  .rounded-xl { border-radius: 0.6rem !important; } /* 12px -> 9.6px */
+  .rounded-lg { border-radius: 0.4rem !important; }
+  .rounded-xl { border-radius: 0.6rem !important; }
   
-  /* Scale down border widths */
-  .border-2 { border-width: 1.6px !important; } /* 2px -> 1.6px */
-}
-
-/* CRITICAL: Force dark text on ALL yellow backgrounds - MUST come last to override everything */
-.bg-avs-yellow,
-.bg-avs-yellow *,
-.bg-avs-yellow svg,
-.bg-avs-yellow span,
-.bg-avs-yellow.text-slate-900,
-.bg-avs-yellow .text-slate-900 {
-  color: rgb(15 23 42) !important; /* Dark slate text - same as sidebar */
+  .border-2 { border-width: 1.6px !important; }
 }
