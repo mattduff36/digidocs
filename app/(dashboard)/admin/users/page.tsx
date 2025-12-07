@@ -209,11 +209,14 @@ export default function UsersAdminPage() {
   }, [searchQuery, roleFilter, users]);
 
   // Handle add user
-  async function handleAddUser(overrideEmail?: string) {
+  async function handleAddUser(overrideEmailOrEvent?: string | React.MouseEvent) {
     if (!formData.email || !formData.full_name) {
       setFormError('Please fill in all required fields');
       return;
     }
+    
+    // Check if first parameter is an event (from button click) or an email string
+    const overrideEmail = typeof overrideEmailOrEvent === 'string' ? overrideEmailOrEvent : undefined;
 
     try {
       setFormLoading(true);
@@ -462,8 +465,11 @@ export default function UsersAdminPage() {
   }
 
   // Handle reset password
-  async function handleResetPassword(overrideEmail?: string) {
+  async function handleResetPassword(overrideEmailOrEvent?: string | React.MouseEvent) {
     if (!selectedUser) return;
+    
+    // Check if first parameter is an event (from button click) or an email string
+    const overrideEmail = typeof overrideEmailOrEvent === 'string' ? overrideEmailOrEvent : undefined;
 
     try {
       setFormLoading(true);

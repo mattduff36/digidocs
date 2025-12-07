@@ -956,7 +956,7 @@ async function createDemoData() {
     const users = await createDemoUsers();
     if (users.length === 0) {
       console.error('❌ No users created, aborting...');
-      return;
+      throw new Error('Failed to create demo users');
     }
 
     const employees = users.filter(u => u.role === 'employee');
@@ -967,7 +967,7 @@ async function createDemoData() {
     const vehicles = await createVehicles();
     if (vehicles.length === 0) {
       console.error('❌ No vehicles created, aborting...');
-      return;
+      throw new Error('Failed to create demo vehicles');
     }
 
     // 3. Create RAMS documents
@@ -1021,5 +1021,13 @@ export { createDemoData };
 
 // Only run if called directly (not imported)
 if (require.main === module) {
-  createDemoData();
+  createDemoData()
+    .then(() => {
+      console.log('✅ Demo data regenerated successfully');
+      process.exit(0);
+    })
+    .catch((error) => {
+      console.error('❌ Fatal error:', error);
+      process.exit(1);
+    });
 }
