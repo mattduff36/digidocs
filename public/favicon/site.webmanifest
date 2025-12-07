@@ -1,6 +1,6 @@
 {
-  "name": "A&V Squires Plant Company LTD",
-  "short_name": "A&V Squires",
+  "name": "MPDEE Digidocs",
+  "short_name": "Digidocs",
   "icons": [
     {
       "src": "/images/favicon/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#fbbf24",
+  "theme_color": "#3b82f6",
   "background_color": "#ffffff",
   "display": "standalone"
 }

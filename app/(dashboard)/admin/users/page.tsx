@@ -1111,10 +1111,10 @@ export default function UsersAdminPage() {
             )}
 
             {/* Password Display */}
-            <div className="bg-slate-800 border-2 border-[#F1D64A] rounded-lg p-4">
+            <div className="bg-slate-800 border-2 border-[#3b82f6] rounded-lg p-4">
               <Label className="text-sm text-slate-400 mb-2 block">Temporary Password</Label>
               <div className="flex items-center gap-2">
-                <div className="flex-1 bg-slate-950 rounded p-3 font-mono text-lg text-[#F1D64A] select-all">
+                <div className="flex-1 bg-slate-950 rounded p-3 font-mono text-lg text-[#3b82f6] select-all">
                   {temporaryPassword}
                 </div>
                 <Button

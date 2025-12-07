@@ -332,7 +332,7 @@ export default function ReportsPage() {
       <Card className="bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700">
         <CardHeader className="border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/50">
           <CardTitle className="text-slate-900 dark:text-white flex items-center gap-2">
-            <Calendar className="h-5 w-5" style={{ color: '#F1D64A' }} />
+            <Calendar className="h-5 w-5" style={{ color: '#3b82f6' }} />
             Report Date Range
           </CardTitle>
           <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -414,8 +414,8 @@ export default function ReportsPage() {
             value="future" 
             className="flex flex-col items-center gap-1 py-3 rounded-md transition-all duration-200 active:scale-95 border-0"
             style={activeTab === 'future' ? {
-              backgroundColor: '#F1D64A',
-              color: 'rgb(15 23 42)',
+              backgroundColor: '#3b82f6',
+              color: '#ffffff',
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
             } : {}}
           >

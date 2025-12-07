@@ -276,7 +276,7 @@ export default function ChangePasswordPage() {
             <Button
               type="submit"
               disabled={submitting}
-              className="w-full bg-[#F1D64A] text-slate-950 hover:bg-[#F1D64A]/90 font-semibold"
+              className="w-full bg-[#3b82f6] text-white hover:bg-[#2563eb] font-semibold"
             >
               {submitting ? (
                 <>

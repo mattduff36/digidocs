@@ -14,8 +14,6 @@ type Manager = {
   } | null;
 };
 
-const SUZANNE_EMAIL = 'suzanne@avsquires.co.uk';
-
 function getSupabaseAdmin() {
   return createSupabaseAdmin<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,8 +28,6 @@ function getSupabaseAdmin() {
 }
 
 function compareManagers(a: Manager, b: Manager): number {
-  if (a.email === SUZANNE_EMAIL) return -1;
-  if (b.email === SUZANNE_EMAIL) return 1;
   return (a.full_name || '').localeCompare(b.full_name || '');
 }
 
@@ -128,7 +124,7 @@ export async function GET() {
         : null,
     }));
 
-    // Ensure Suzanne Squires is first in the response
+    // Sort managers alphabetically
     managers.sort(compareManagers);
 
     return NextResponse.json({ managers });

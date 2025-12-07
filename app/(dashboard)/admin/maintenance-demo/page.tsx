@@ -77,7 +77,7 @@ const vehicles = [
   {
     year: 2015,
     reg: 'BD15 XYZ',
-    driver: 'Tom Squires',
+    driver: 'Tom Smith',
     brand: 'Volkswagen',
     model: 'Transporter',
     presentMileage: 87420,

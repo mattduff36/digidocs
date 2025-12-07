@@ -257,8 +257,8 @@ export default function ActionsPage() {
             value="future" 
             className="flex flex-col items-center gap-1 py-3 rounded-md transition-all duration-200 active:scale-95 border-0"
             style={activeTab === 'future' ? {
-              backgroundColor: '#F1D64A', // AVS Yellow
-              color: '#252525',
+              backgroundColor: '#3b82f6', // Blue theme
+              color: '#ffffff',
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
             } : {}}
           >

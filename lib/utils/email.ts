@@ -33,8 +33,8 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
     }
     
     const subject = isReset 
-      ? 'Your Password Has Been Reset - SquiresApp'
-      : 'Welcome to SquiresApp - Your Login Details';
+      ? 'Your Password Has Been Reset - MPDEE Digidocs'
+      : 'Welcome to MPDEE Digidocs - Your Login Details';
     
     const htmlContent = isReset ? `
       <!DOCTYPE html>
@@ -44,20 +44,20 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: #F1D64A; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1 style="margin: 0; color: #252525;">SquiresApp</h1>
+          <div style="background-color: #3b82f6; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; color: white;">MPDEE Digidocs</h1>
           </div>
           
           <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
-            <h2 style="color: #252525; margin-top: 0;">Password Reset</h2>
+            <h2 style="color: #1f2937; margin-top: 0;">Password Reset</h2>
             
             <p>Hello ${userName},</p>
             
             <p>Your password has been reset by an administrator. You can now log in using the temporary password below:</p>
             
-            <div style="background-color: #fff; border: 2px solid #F1D64A; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
+            <div style="background-color: #fff; border: 2px solid #3b82f6; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
               <p style="margin: 0 0 10px 0; font-size: 14px; color: #666;">Temporary Password</p>
-              <p style="margin: 0; font-size: 24px; font-weight: bold; color: #252525; letter-spacing: 1px;">${temporaryPassword}</p>
+              <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1f2937; letter-spacing: 1px;">${temporaryPassword}</p>
             </div>
             
             <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
@@ -67,7 +67,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
             
             <p><strong>Next Steps:</strong></p>
             <ol style="color: #4b5563;">
-              <li>Go to SquiresApp.com or open the app</li>
+              <li>Open the app and go to the login page</li>
               <li>Enter your email address and the temporary password above</li>
               <li>Create a new password when prompted</li>
             </ol>
@@ -78,7 +78,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
           </div>
         </body>
       </html>
@@ -90,23 +90,23 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: #F1D64A; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1 style="margin: 0; color: #252525;">Welcome to SquiresApp</h1>
+          <div style="background-color: #3b82f6; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; color: white;">Welcome to MPDEE Digidocs</h1>
           </div>
           
           <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
-            <h2 style="color: #252525; margin-top: 0;">Your Account Has Been Created</h2>
+            <h2 style="color: #1f2937; margin-top: 0;">Your Account Has Been Created</h2>
             
             <p>Hello ${userName},</p>
             
-            <p>Welcome to SquiresApp! Your account has been created and you can now log in using the credentials below:</p>
+            <p>Welcome to MPDEE Digidocs! Your account has been created and you can now log in using the credentials below:</p>
             
-            <div style="background-color: #fff; border: 2px solid #F1D64A; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <div style="background-color: #fff; border: 2px solid #3b82f6; border-radius: 8px; padding: 20px; margin: 20px 0;">
               <p style="margin: 0 0 10px 0; font-size: 14px; color: #666;">Email Address</p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; color: #252525;">${to}</p>
+              <p style="margin: 0 0 20px 0; font-size: 16px; color: #1f2937;">${to}</p>
               
               <p style="margin: 0 0 10px 0; font-size: 14px; color: #666;">Temporary Password</p>
-              <p style="margin: 0; font-size: 24px; font-weight: bold; color: #252525; letter-spacing: 1px;">${temporaryPassword}</p>
+              <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1f2937; letter-spacing: 1px;">${temporaryPassword}</p>
             </div>
             
             <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
@@ -116,7 +116,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
             
             <p><strong>Getting Started:</strong></p>
             <ol style="color: #4b5563;">
-              <li>Go to SquiresApp.com or open the app</li>
+              <li>Open the app and go to the login page</li>
               <li>Enter your email address and the temporary password above</li>
               <li>Create a new password when prompted</li>
             </ol>
@@ -132,7 +132,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
           </div>
         </body>
       </html>
@@ -146,7 +146,7 @@ export async function sendPasswordEmail(params: SendPasswordEmailParams): Promis
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'AVS Worklog <onboarding@resend.dev>',
+        from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
         to: [to],
         subject,
         html: htmlContent
@@ -267,12 +267,12 @@ export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParam
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: #F1D64A; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1 style="margin: 0; color: #252525;">SquiresApp</h1>
+          <div style="background-color: #3b82f6; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; color: white;">MPDEE Digidocs</h1>
           </div>
           
           <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
-            <h2 style="color: #252525; margin-top: 0;">Your Profile Has Been Updated</h2>
+            <h2 style="color: #1f2937; margin-top: 0;">Your Profile Has Been Updated</h2>
             
             <p>Hello ${userName},</p>
             
@@ -306,7 +306,7 @@ export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParam
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
           </div>
         </body>
       </html>
@@ -320,9 +320,9 @@ export async function sendProfileUpdateEmail(params: SendProfileUpdateEmailParam
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'AVS Worklog <onboarding@resend.dev>',
+        from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
         to: [to],
-        subject: 'Your SquiresApp Profile Has Been Updated',
+        subject: 'Your MPDEE Digidocs Profile Has Been Updated',
         html: htmlContent
       })
     });
@@ -411,7 +411,7 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
             </div>
             
             <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
-              <h2 style="color: #252525; margin-top: 0;">Action Required</h2>
+              <h2 style="color: #1f2937; margin-top: 0;">Action Required</h2>
               
               <p>Hello,</p>
               
@@ -429,7 +429,7 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
               
               <p><strong>Next Steps:</strong></p>
               <ol style="color: #4b5563;">
-                <li>Open the SquiresApp or log in at SquiresApp.com</li>
+                <li>Open the app and log in</li>
                 <li>Read the full Toolbox Talk message</li>
                 <li>Sign electronically to confirm you've read and understood it</li>
               </ol>
@@ -444,7 +444,7 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
             </div>
             
             <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-              <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+              <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
             </div>
           </body>
         </html>
@@ -460,7 +460,7 @@ export async function sendToolboxTalkEmail(params: SendToolboxTalkEmailParams): 
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              from: process.env.RESEND_FROM_EMAIL || 'AVS Worklog <onboarding@resend.dev>',
+              from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
               to: [email],
               subject: `New Toolbox Talk: ${subject}`,
               html: htmlContent
@@ -551,8 +551,8 @@ export async function sendTimesheetRejectionEmail(params: SendTimesheetRejection
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: #F1D64A; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1 style="margin: 0; color: #252525;">SquiresApp</h1>
+          <div style="background-color: #3b82f6; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; color: white;">MPDEE Digidocs</h1>
           </div>
           
           <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
@@ -571,19 +571,19 @@ export async function sendTimesheetRejectionEmail(params: SendTimesheetRejection
             
             <p><strong>What You Need to Do:</strong></p>
             <ol style="color: #4b5563;">
-              <li>Log in to SquiresApp</li>
+              <li>Log in to the app</li>
               <li>Review the manager's comments</li>
               <li>Make the necessary corrections to your timesheet</li>
               <li>Resubmit for approval</li>
             </ol>
             
             <p style="color: #6b7280; font-size: 14px; margin-top: 30px;">
-              Please log in to SquiresApp to make the necessary corrections. If you have questions about the rejection, please contact your manager.
+              Please log in to make the necessary corrections. If you have questions about the rejection, please contact your manager.
             </p>
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
           </div>
         </body>
       </html>
@@ -596,7 +596,7 @@ export async function sendTimesheetRejectionEmail(params: SendTimesheetRejection
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'AVS Worklog <onboarding@resend.dev>',
+        from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
         to: [to],
         subject,
         html: htmlContent
@@ -666,8 +666,8 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: #F1D64A; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1 style="margin: 0; color: #252525;">SquiresApp</h1>
+          <div style="background-color: #3b82f6; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; color: white;">MPDEE Digidocs</h1>
           </div>
           
           <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
@@ -677,19 +677,19 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
             
             <p>A timesheet has been adjusted and may require your attention.</p>
             
-            <div style="background-color: #fff; border: 2px solid #F1D64A; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <div style="background-color: #fff; border: 2px solid #3b82f6; border-radius: 8px; padding: 20px; margin: 20px 0;">
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Employee:</td>
-                  <td style="padding: 8px 0; font-weight: bold; color: #252525;">${employeeName}</td>
+                  <td style="padding: 8px 0; font-weight: bold; color: #1f2937;">${employeeName}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Week Ending:</td>
-                  <td style="padding: 8px 0; font-weight: bold; color: #252525;">${weekEnding}</td>
+                  <td style="padding: 8px 0; font-weight: bold; color: #1f2937;">${weekEnding}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Adjusted By:</td>
-                  <td style="padding: 8px 0; font-weight: bold; color: #252525;">${adjustedBy}</td>
+                  <td style="padding: 8px 0; font-weight: bold; color: #1f2937;">${adjustedBy}</td>
                 </tr>
               </table>
             </div>
@@ -705,7 +705,7 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} A&V Squires Plant Co. Ltd. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} MPDEE Ltd. All rights reserved.</p>
           </div>
         </body>
       </html>
@@ -718,7 +718,7 @@ export async function sendTimesheetAdjustmentEmail(params: SendTimesheetAdjustme
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'AVS Worklog <onboarding@resend.dev>',
+        from: process.env.RESEND_FROM_EMAIL || 'MPDEE DigiDocs <no-reply@mpdee.co.uk>',
         to: [to],
         subject,
         html: htmlContent
@@ -791,4 +791,3 @@ export async function sendTestTimesheetEmails(adminEmail: string): Promise<{
     };
   }
 }
-
