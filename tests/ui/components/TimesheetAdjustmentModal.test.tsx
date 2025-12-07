@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { TimesheetAdjustmentModal } from '@/components/timesheets/TimesheetAdjustmentModal';
-import { createSuzanneSquiresApiResponse, createManagerApiResponse } from '../../utils/factories';
+import { createPriorityEmployeeApiResponse, createManagerApiResponse } from '../../utils/factories';
 import { resetAllMocks, mockFetch } from '../../utils/test-helpers';
 
 describe('TimesheetAdjustmentModal', () => {
@@ -80,7 +80,7 @@ describe('TimesheetAdjustmentModal', () => {
 
       // Wait for managers to load
       await waitFor(() => {
-        expect(screen.getByText('Suzanne Squires')).toBeInTheDocument();
+        expect(screen.getByText('Priority Employee')).toBeInTheDocument();
       });
 
       const commentInput = screen.getByPlaceholderText(/Explain what was adjusted/i);
@@ -90,7 +90,7 @@ describe('TimesheetAdjustmentModal', () => {
       fireEvent.change(commentInput, { target: { value: 'Adjusted hours for Thursday' } });
 
       // Select Suzanne
-      const checkbox = screen.getByRole('checkbox', { name: /Suzanne Squires/i });
+      const checkbox = screen.getByRole('checkbox', { name: /Priority Employee/i });
       fireEvent.click(checkbox);
 
       // Button should now be enabled
@@ -100,8 +100,8 @@ describe('TimesheetAdjustmentModal', () => {
     });
   });
 
-  describe('Suzanne Squires prioritization', () => {
-    it('should show Suzanne Squires at the top of the list', async () => {
+  describe('Priority Employee prioritization', () => {
+    it('should show Priority Employee at the top of the list', async () => {
       const suzanne = createSuzanneSquiresApiResponse();
       const manager2 = createManagerApiResponse({
         id: 'manager2-id',
@@ -150,10 +150,10 @@ describe('TimesheetAdjustmentModal', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText('Suzanne Squires')).toBeInTheDocument();
+        expect(screen.getByText('Priority Employee')).toBeInTheDocument();
       });
 
-      const suzanneCheckbox = screen.getByRole('checkbox', { name: /Suzanne Squires/i });
+      const priorityEmployeeCheckbox = screen.getByRole('checkbox', { name: /Priority Employee/i });
       const aliceCheckbox = screen.getByRole('checkbox', { name: /Alice Manager/i });
 
       fireEvent.click(suzanneCheckbox);
@@ -181,7 +181,7 @@ describe('TimesheetAdjustmentModal', () => {
         expect(screen.getByText(/Select All \(0 selected\)/i)).toBeInTheDocument();
       });
 
-      const checkbox = screen.getByRole('checkbox', { name: /Suzanne Squires/i });
+      const checkbox = screen.getByRole('checkbox', { name: /Priority Employee/i });
       fireEvent.click(checkbox);
 
       await waitFor(() => {
@@ -207,13 +207,13 @@ describe('TimesheetAdjustmentModal', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText('Suzanne Squires')).toBeInTheDocument();
+        expect(screen.getByText('Priority Employee')).toBeInTheDocument();
       });
 
       const commentInput = screen.getByPlaceholderText(/Explain what was adjusted/i);
       fireEvent.change(commentInput, { target: { value: 'Corrected Thursday hours' } });
 
-      const checkbox = screen.getByRole('checkbox', { name: /Suzanne Squires/i });
+      const checkbox = screen.getByRole('checkbox', { name: /Priority Employee/i });
       fireEvent.click(checkbox);
 
       const submitButton = screen.getByRole('button', { name: /Mark as Adjusted/i });
@@ -248,7 +248,7 @@ describe('TimesheetAdjustmentModal', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText('Suzanne Squires')).toBeInTheDocument();
+        expect(screen.getByText('Priority Employee')).toBeInTheDocument();
         expect(screen.getByText('Alice Manager')).toBeInTheDocument();
       });
 
@@ -256,7 +256,7 @@ describe('TimesheetAdjustmentModal', () => {
       fireEvent.change(searchInput, { target: { value: 'Alice' } });
 
       await waitFor(() => {
-        expect(screen.queryByText('Suzanne Squires')).not.toBeInTheDocument();
+        expect(screen.queryByText('Priority Employee')).not.toBeInTheDocument();
         expect(screen.getByText('Alice Manager')).toBeInTheDocument();
       });
     });

@@ -34,27 +34,11 @@ POSTGRES_URL="postgresql://user:pass@host:5432/database"
 
 ## 🚀 Running Migrations
 
-### Method 1: Run a Specific Migration (Recommended)
+### Running Future Migrations
 
-Each migration has its own runner script in the `scripts/` directory:
+When new migrations are needed, create a migration script following the pattern below.
 
-```bash
-# RAMS feature migration
-npx tsx scripts/run-rams-migration.ts
-
-# Other migrations
-npx tsx scripts/run-db-migration.ts
-npx tsx scripts/run-shift-type-migration.ts
-npx tsx scripts/run-day-of-week-migration.ts
-```
-
-### Method 2: Run All Migrations
-
-To run all pending migrations at once:
-
-```bash
-npx tsx scripts/run-all-migrations.ts
-```
+All historical migrations have been applied and cleaned up. The database schema is current.
 
 ---
 
@@ -349,11 +333,11 @@ CREATE POLICY "new_policy_name" ON my_table
 
 | Task | Command |
 |------|---------|
-| Run RAMS migration | `npx tsx scripts/run-rams-migration.ts` |
-| Run all migrations | `npx tsx scripts/run-all-migrations.ts` |
-| Check migration status | Check console output after running |
-| Verify tables | Use SQL in script or check Supabase Dashboard |
-| Rollback (manual) | Write a down migration and run it |
+| Verify database | `npm run verify:database` |
+| Backup database | `npm run backup:database` |
+| Check migration status | Check Supabase Dashboard |
+| Verify tables | Use SQL in Supabase Dashboard |
+| Future migrations | Create new migration script following guide above |
 
 ---
 

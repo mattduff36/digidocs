@@ -234,7 +234,7 @@ Proprietary - MPDEE Ltd.
 ## Version
 
 **v2.0.0** - Skeleton Release (December 2025)
-- Converted from SquiresApp to reusable skeleton
+- Fully customizable digital forms management system
 - Neutral branding and theme
 - Light and dark mode support
 - Renamed RAMS to Documents

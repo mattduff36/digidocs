@@ -77,11 +77,11 @@ export const createMockAdmin = () =>
     },
   });
 
-export const createSuzanneSquires = () =>
+export const createPriorityEmployee = () =>
   createMockProfile({
-    id: 'suzanne-id',
-    full_name: 'Suzanne Squires',
-    email: 'suzanne@avsquires.co.uk',
+    id: 'priority-employee-id',
+    full_name: 'Priority Employee',
+    email: 'priority@digidocs.com',
     roles: {
       id: 'manager-role-id',
       name: 'manager',
@@ -103,10 +103,10 @@ export const createManagerApiResponse = (overrides?: any) => ({
   ...overrides,
 });
 
-export const createSuzanneSquiresApiResponse = () => ({
-  id: 'suzanne-id',
-  full_name: 'Suzanne Squires',
-  email: 'suzanne@avsquires.co.uk',
+export const createPriorityEmployeeApiResponse = () => ({
+  id: 'priority-employee-id',
+  full_name: 'Priority Employee',
+  email: 'priority@digidocs.com',
   role: {
     name: 'manager',
     display_name: 'Manager',

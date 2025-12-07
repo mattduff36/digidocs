@@ -33,7 +33,7 @@ Use this checklist to verify the skeleton app is working correctly after migrati
 
 ## ✅ Branding Verification
 
-- [ ] Home page shows "MPDEE Digidocs" (not "Squires")
+- [ ] Home page shows "MPDEE Digidocs"
 - [ ] Login page shows "MPDEE Digidocs"
 - [ ] Navbar shows "MPDEE Digidocs"
 - [ ] No AVS yellow color visible (should be professional blue #3b82f6)
@@ -171,7 +171,7 @@ Use this checklist to verify the skeleton app is working correctly after migrati
 Once all checks pass:
 
 - [ ] All critical functionality works
-- [ ] Branding is correct (no Squires references)
+- [ ] Branding is correct
 - [ ] Theme switching works
 - [ ] Ready for client customization
 - [ ] Ready for deployment

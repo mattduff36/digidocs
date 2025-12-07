@@ -137,7 +137,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 After logging in, you should see:
 
-- ✅ App title: "MPDEE Digidocs" (not "Squires")
+- ✅ App title: "MPDEE Digidocs"
 - ✅ Navbar: "MPDEE Digidocs"
 - ✅ Primary color: Professional Blue (#3b82f6), not yellow
 - ✅ Theme matches your system (light/dark)

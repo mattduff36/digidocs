@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { POST } from '@/app/api/timesheets/[id]/adjust/route';
-import { createMockTimesheet, createMockManager, createMockAdmin, createSuzanneSquires } from '../../utils/factories';
+import { createMockTimesheet, createMockManager, createMockAdmin, createPriorityEmployee } from '../../utils/factories';
 import { mockSupabaseAuthUser, mockSupabaseQuery, mockFetch, resetAllMocks } from '../../utils/test-helpers';
 
 describe('POST /api/timesheets/[id]/adjust', () => {

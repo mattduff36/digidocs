@@ -260,7 +260,7 @@ export function VanInspectionPDF({ inspection, items, vehicleReg, employeeName }
 
         {/* Company Header */}
         <View style={styles.companyHeader}>
-          <Text style={styles.companyName}>A&V SQUIRES Plant Co. Ltd.</Text>
+          <Text style={styles.companyName}>MPDEE DigiDocs</Text>
           <Text style={styles.companyDetails}>
             REGISTERED OFFICE: VIVIENNE HOUSE, RACECOURSE ROAD, CREW LANE INDUSTRIAL ESTATE, SOUTHWELL, NOTTS. NG25 0TX
           </Text>

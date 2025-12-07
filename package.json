@@ -12,16 +12,16 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "setup:storage": "tsx scripts/setup-storage.ts",
+    "setup:demo-storage": "tsx scripts/setup-demo-storage.ts",
     "setup:test-users": "tsx scripts/create-test-users.ts",
     "seed:sample-data": "tsx scripts/seed-sample-data.ts",
+    "create:demo-data": "tsx scripts/create-demo-data.ts",
     "clear:inspections": "tsx scripts/clear-inspections.ts",
     "reseed:inspections": "npm run clear:inspections && npm run seed:sample-data",
-    "seed:inspections-sql": "tsx scripts/seed-inspections-sql.ts",
-    "migrate": "tsx scripts/run-migration.ts",
-    "migrate:day-of-week": "tsx scripts/run-day-of-week-migration.ts",
-    "import:database": "tsx scripts/import-skeleton-database.ts",
     "test:reports": "tsx scripts/test-reports.ts",
-    "test:processed-status": "tsx scripts/test-processed-status.ts"
+    "verify:database": "tsx scripts/verify-database.ts",
+    "backup:database": "tsx scripts/backup-database.ts",
+    "wipe:database": "tsx scripts/wipe-database.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

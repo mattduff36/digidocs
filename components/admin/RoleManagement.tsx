@@ -322,13 +322,7 @@ export function RoleManagement() {
                     <TableRow key={role.id} className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50">
                       <TableCell className="font-medium text-slate-900 dark:text-white">
                         <div className="flex items-center gap-2">
-                          {role.is_super_admin && <Shield className="h-4 w-4 text-purple-500" />}
                           {role.display_name}
-                          {role.is_super_admin && (
-                            <Badge variant="outline" className="text-purple-500 border-purple-500">
-                              Super Admin
-                            </Badge>
-                          )}
                         </div>
                       </TableCell>
                       <TableCell className="text-slate-700 dark:text-slate-300 max-w-xs truncate">

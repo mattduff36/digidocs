@@ -1,11 +1,11 @@
-# Squires App Documentation
+# DigiDocs Documentation
 
-Welcome to the Squires App documentation. This folder contains all guides, feature documentation, and project status information.
+Welcome to the DigiDocs documentation. This folder contains all guides, feature documentation, and project status information.
 
 ## 📚 Quick Navigation
 
 ### 🚀 Getting Started
-- **[Main PRD](./SQUIRES_APP_PROPOSAL.md)** - Complete project proposal and requirements
+- **Feature Documentation** - Complete feature specifications
 - **[Setup Guide](./setup/SETUP_COMPLETE.md)** - Initial project setup instructions
 - **[Deployment Guide](./setup/DEPLOYMENT_COMPLETE.md)** - Production deployment information
 
@@ -74,7 +74,7 @@ Historical documents and completed items:
 
 ### For Understanding Features
 1. **[PRD Implementation Status](./status/PRD_IMPLEMENTATION_STATUS.md)** - See what's complete
-2. **[Main PRD](./SQUIRES_APP_PROPOSAL.md)** - Original requirements
+2. **Feature Documentation** - Detailed feature specifications
 
 ### For Setup
 1. **[Setup Complete](./setup/SETUP_COMPLETE.md)** - Initial setup
@@ -87,7 +87,7 @@ Historical documents and completed items:
 ```
 docs/
 ├── README.md (this file)
-├── SQUIRES_APP_PROPOSAL.md (main PRD)
+├── features/ (feature documentation)
 │
 ├── guides/          # How-to guides
 ├── features/        # Feature documentation

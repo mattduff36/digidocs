@@ -10,7 +10,7 @@ afterEach(() => {
 // Mock environment variables
 process.env.NEXT_PUBLIC_APP_URL = 'http://localhost:3000';
 process.env.RESEND_API_KEY = 'test-api-key';
-process.env.RESEND_FROM_EMAIL = 'SquiresApp <test@squiresapp.com>';
+process.env.RESEND_FROM_EMAIL = 'DigiDocs <test@digidocs.com>';
 
 // Mock Next.js router
 vi.mock('next/navigation', () => ({

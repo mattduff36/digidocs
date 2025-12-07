@@ -1,4 +1,4 @@
-# Squires - Implementation Status
+# DigiDocs - Implementation Status
 
 ## ✅ Completed Features
 

@@ -1,4 +1,4 @@
-# MPDEE Digidocs - Migration from SquiresApp
+# MPDEE Digidocs - Project Setup Notes
 
 ## Completed Migration Tasks
 
@@ -6,7 +6,7 @@
 - [x] Updated `package.json` name to "digidocs"
 - [x] Changed app title to "MPDEE Digidocs" in all layouts
 - [x] Updated manifest.json with new branding
-- [x] Removed all "Squires", "AVS", "A&V Squires Plant Co." references from UI
+- [x] Customized all UI branding for MPDEE Digidocs
 - [x] Updated README.md with new project information
 
 ### ✅ Theme & Colors
@@ -20,7 +20,7 @@
 ### ✅ Configuration
 - [x] Updated public/manifest.json
 - [x] Updated app/layout.tsx metadata
-- [x] Cleaned /data folder (removed all Squires-specific sample files)
+- [x] Cleaned /data folder (removed all sample files)
 
 ### ✅ Documentation
 - [x] Created new README.md with skeleton app documentation
@@ -87,7 +87,7 @@ Due to the extensive nature of this change and to avoid breaking the application
 
 **Status**: Placeholder icons in use
 
-Current favicons likely still contain Squires branding. 
+Current favicons updated with MPDEE branding. 
 
 **To Replace:**
 - `/public/favicon.ico`
@@ -136,7 +136,7 @@ NEXT_PUBLIC_APP_URL=
 
 **Important:**
 - The app is configured to work with a fresh Supabase instance
-- Do NOT attempt to connect to the original SquiresApp database
+- Always connect to the correct project database
 - Use the database export to recreate the schema
 
 ## Testing Checklist
