@@ -11,7 +11,7 @@ import {
   Card,
   CardContent,
 } from '@/components/ui/card';
-import { Lock } from 'lucide-react';
+import { Lock, User, UserCog, Briefcase, HardHat } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -75,6 +75,29 @@ export default function LoginPage() {
     }
   };
 
+  const handleDemoLogin = async (demoEmail: string, demoPassword: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+    setError('');
+    setLoading(true);
+
+    try {
+      const { error } = await signIn(demoEmail, demoPassword);
+      
+      if (error) {
+        setError(error.message);
+      } else {
+        localStorage.setItem('rememberMe', 'true');
+        router.push('/dashboard');
+        router.refresh();
+      }
+    } catch {
+      setError('An unexpected error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-start justify-center p-4 pt-12 sm:pt-16 md:pt-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-md relative z-10">
@@ -87,7 +110,8 @@ export default function LoginPage() {
 
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">MPDEE Digidocs</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2">MPDEE DIGIDOCS</h1>
+          <p className="text-sm text-muted-foreground">Digital Work Document System - Demonstration App</p>
         </div>
 
         {/* Login Card */}
@@ -157,8 +181,76 @@ export default function LoginPage() {
         </Card>
 
         <div className="mt-6 text-center text-sm text-muted-foreground">
-          <p>Contact your administrator for account access</p>
+          <p className="mb-4">Contact your administrator for account access</p>
         </div>
+
+        {/* Demo Login Buttons */}
+        <Card className="bg-card border-border shadow-lg mt-6">
+          <CardContent className="p-6">
+            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">Quick Demo Login</h3>
+            <div className="space-y-3">
+              {/* Admin Demo */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
+                onClick={() => handleDemoLogin('sarah.mitchell@digidocsdemo.com', 'Password123')}
+                disabled={loading}
+              >
+                <UserCog className="h-5 w-5 mr-3 text-purple-500" />
+                <div className="text-left">
+                  <div className="font-semibold text-foreground">Administrator</div>
+                  <div className="text-xs text-muted-foreground">Sarah Mitchell - Full system access</div>
+                </div>
+              </Button>
+
+              {/* Manager Demo */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
+                onClick={() => handleDemoLogin('james.wilson@digidocsdemo.com', 'Password123')}
+                disabled={loading}
+              >
+                <Briefcase className="h-5 w-5 mr-3 text-blue-500" />
+                <div className="text-left">
+                  <div className="font-semibold text-foreground">Manager</div>
+                  <div className="text-xs text-muted-foreground">James Wilson - Team oversight & approvals</div>
+                </div>
+              </Button>
+
+              {/* Employee Demo */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
+                onClick={() => handleDemoLogin('john.smith@digidocsdemo.com', 'Password123')}
+                disabled={loading}
+              >
+                <User className="h-5 w-5 mr-3 text-green-500" />
+                <div className="text-left">
+                  <div className="font-semibold text-foreground">Employee</div>
+                  <div className="text-xs text-muted-foreground">John Smith - Submit timesheets & inspections</div>
+                </div>
+              </Button>
+
+              {/* Contractor Demo */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
+                onClick={() => handleDemoLogin('david.brown@digidocsdemo.com', 'Password123')}
+                disabled={loading}
+              >
+                <HardHat className="h-5 w-5 mr-3 text-orange-500" />
+                <div className="text-left">
+                  <div className="font-semibold text-foreground">Contractor</div>
+                  <div className="text-xs text-muted-foreground">David Brown - Limited contractor access</div>
+                </div>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
