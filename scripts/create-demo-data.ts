@@ -990,4 +990,10 @@ async function createDemoData() {
   }
 }
 
-createDemoData();
+// Export for use in API routes
+export { createDemoData };
+
+// Only run if called directly (not imported)
+if (require.main === module) {
+  createDemoData();
+}

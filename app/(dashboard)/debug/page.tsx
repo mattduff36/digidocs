@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
 import {
   Bug,
   Database,
@@ -99,6 +100,9 @@ export default function DebugPage() {
   const [expandedErrors, setExpandedErrors] = useState<string[]>([]);
   const [expandedAudits, setExpandedAudits] = useState<string[]>([]);
   const [viewedErrors, setViewedErrors] = useState<Set<string>>(new Set());
+  const [resetting, setResetting] = useState(false);
+  const [resetProgress, setResetProgress] = useState(0);
+  const [resetStage, setResetStage] = useState('');
 
   // Check if user is superadmin and viewing as actual role
   useEffect(() => {
@@ -357,6 +361,72 @@ export default function DebugPage() {
       toast.error('Failed to clear error logs');
     } finally {
       setClearingErrors(false);
+    }
+  };
+
+  const resetDemoDatabase = async () => {
+    if (!confirm('⚠️ RESET DEMO DATABASE?\n\nThis will:\n• Delete ALL user accounts (except SuperAdmin)\n• Delete ALL timesheets, inspections, and documents\n• Delete ALL vehicles and other data\n• Regenerate ALL demo data automatically\n\nThis action CANNOT be undone!\n\nAre you absolutely sure?')) {
+      return;
+    }
+
+    // Double confirmation for safety
+    if (!confirm('Final confirmation: Reset and regenerate demo database?')) {
+      return;
+    }
+
+    setResetting(true);
+    setResetProgress(0);
+    setResetStage('Starting reset...');
+    toast.loading('Resetting database...', { id: 'reset' });
+    
+    try {
+      // Simulate progress stages
+      const progressInterval = setInterval(() => {
+        setResetProgress((prev) => {
+          if (prev < 90) return prev + 2;
+          return prev;
+        });
+      }, 500);
+
+      setResetStage('Clearing database tables...');
+      setResetProgress(10);
+      
+      const response = await fetch('/api/admin/reset-demo-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      clearInterval(progressInterval);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to reset database');
+      }
+
+      setResetProgress(100);
+      setResetStage('Complete! ✓');
+      toast.success('Database reset and demo data regenerated!', { id: 'reset' });
+      
+      // Refresh all data after a short delay
+      setTimeout(() => {
+        fetchAllEntities();
+        fetchAuditLogs();
+        fetchErrorLogs();
+        setResetProgress(0);
+        setResetStage('');
+      }, 2000);
+      
+    } catch (error: any) {
+      console.error('Error resetting database:', error);
+      toast.error(`Failed to reset database: ${error.message}`, { id: 'reset' });
+      setResetProgress(0);
+      setResetStage('');
+    } finally {
+      setTimeout(() => {
+        setResetting(false);
+      }, 2000);
     }
   };
 
@@ -645,15 +715,47 @@ ${log.changes && Object.keys(log.changes).length > 0 ? `CHANGES:\n${Object.entri
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-2 border-orange-500/20 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Clock className="h-4 w-4 text-purple-500" />
-              Next.js Version
+              <Database className="h-4 w-4 text-orange-500" />
+              Demo Database
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{debugInfo?.nextVersion}</p>
+          <CardContent className="space-y-3">
+            {resetting && resetProgress > 0 && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">{resetStage}</span>
+                  <span className="font-semibold text-orange-600">{resetProgress}%</span>
+                </div>
+                <Progress value={resetProgress} className="h-2" />
+              </div>
+            )}
+            <Button
+              onClick={resetDemoDatabase}
+              disabled={resetting}
+              variant="destructive"
+              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+              size="sm"
+            >
+              {resetting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Resetting...
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Reset Database
+                </>
+              )}
+            </Button>
+            {!resetting && (
+              <p className="text-xs text-muted-foreground text-center">
+                Clear & regenerate demo data
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
