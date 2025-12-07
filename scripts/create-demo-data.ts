@@ -296,12 +296,39 @@ async function createDemoUsers() {
 
       if (authError) {
         if (authError.message.includes('already registered') || authError.code === 'email_exists') {
-          console.log(`   ℹ️  User already exists, fetching ID...`);
+          console.log(`   ℹ️  User already exists, updating profile...`);
           const { data: allUsers } = await supabase.auth.admin.listUsers();
           const foundUser = allUsers?.users.find(u => u.email === email);
           if (foundUser) {
-            createdUsers.push({ ...user, id: foundUser.id, email, fullName });
-            console.log(`   ✅ Found existing user`);
+            // Get the appropriate role_id
+            const { data: roles } = await supabase
+              .from('roles')
+              .select('id, name')
+              .eq('name', user.role)
+              .single();
+
+            if (roles) {
+              // Upsert the profile for existing user
+              const { error: upsertError } = await supabase
+                .from('profiles')
+                .upsert({ 
+                  id: foundUser.id,
+                  role: user.role,
+                  role_id: roles.id,
+                  employee_id: user.id,
+                  full_name: fullName,
+                  email: email
+                }, { 
+                  onConflict: 'id'
+                });
+                
+              if (upsertError) {
+                console.error(`   ❌ Error updating profile:`, upsertError.message);
+              } else {
+                createdUsers.push({ ...user, id: foundUser.id, email, fullName });
+                console.log(`   ✅ Profile updated successfully`);
+              }
+            }
           }
         } else {
           console.error(`   ❌ Error:`, authError.message);

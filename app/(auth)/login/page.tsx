@@ -181,12 +181,12 @@ export default function LoginPage() {
         </Card>
 
         <div className="mt-6 text-center text-sm text-muted-foreground">
-          <p className="mb-4">Contact your administrator for account access</p>
+          <p>Contact your administrator for account access</p>
         </div>
       </div>
 
       {/* Demo Login Buttons - Wider on desktop */}
-      <div className="w-full max-w-md md:max-w-3xl relative z-10 mt-6">
+      <div className="w-full max-w-md md:max-w-3xl relative z-10 mt-8">
         <Card className="bg-card border-border shadow-lg">
           <CardContent className="p-6">
             <div className="mb-4 text-center">
