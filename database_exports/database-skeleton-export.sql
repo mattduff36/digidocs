@@ -615,9 +615,7 @@ CREATE POLICY "Admins can manage all profiles" ON profiles FOR ALL USING (is_man
 -- ROLES POLICIES
 -- ----------------------------------------
 CREATE POLICY "Anyone can view roles" ON roles FOR SELECT TO authenticated USING (true);
-CREATE POLICY "Only admins can manage roles" ON roles FOR ALL TO authenticated USING (
-  EXISTS (SELECT 1 FROM profiles p JOIN roles r ON p.role_id = r.id WHERE p.id = auth.uid() AND r.is_manager_admin = true)
-);
+CREATE POLICY "Only admins can manage roles" ON roles FOR ALL TO authenticated USING (is_manager_admin());
 
 -- ----------------------------------------
 -- ROLE PERMISSIONS POLICIES
