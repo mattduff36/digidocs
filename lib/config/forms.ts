@@ -45,7 +45,7 @@ export const FORM_TYPES: FormType[] = [
     icon: FileText,
     href: '/timesheets',
     listHref: '/timesheets',
-    color: 'timesheet',
+    color: 'hsl(217 91% 60%)', // Blue
     enabled: true,
   },
   {
@@ -55,7 +55,7 @@ export const FORM_TYPES: FormType[] = [
     icon: ClipboardCheck,
     href: '/inspections',
     listHref: '/inspections',
-    color: 'inspection',
+    color: 'hsl(30 95% 55%)', // Orange
     enabled: true,
   },
   {
@@ -65,7 +65,7 @@ export const FORM_TYPES: FormType[] = [
     icon: FileCheck2,
     href: '/rams',
     listHref: '/rams',
-    color: 'rams',
+    color: 'hsl(160 60% 45%)', // Green
     enabled: true,
   },
   {
@@ -75,7 +75,7 @@ export const FORM_TYPES: FormType[] = [
     icon: CalendarDays,
     href: '/absence',
     listHref: '/absence',
-    color: 'absence',
+    color: 'hsl(260 60% 50%)', // Purple
     enabled: true,
   },
   // Future forms - uncomment and configure as needed:
