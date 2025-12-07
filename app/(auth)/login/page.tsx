@@ -99,22 +99,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-start justify-center p-4 pt-12 sm:pt-16 md:pt-24 relative overflow-hidden bg-background">
+    <div className="min-h-screen flex flex-col items-center p-4 pt-12 sm:pt-16 md:pt-24 relative overflow-hidden bg-background">
+      {/* Brand Icon */}
+      <div className="flex justify-center mb-6">
+        <div className="bg-primary rounded-2xl p-5 shadow-lg shadow-primary/20">
+          <Lock className="h-10 w-10 text-primary-foreground" strokeWidth={2.5} />
+        </div>
+      </div>
+
+      {/* Title */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-foreground mb-2">MPDEE DIGIDOCS</h1>
+        <p className="text-sm text-muted-foreground">Digital Work Document System - Demonstration App</p>
+      </div>
+
+      {/* Login Card - Standard width */}
       <div className="w-full max-w-md relative z-10">
-        {/* Brand Icon */}
-        <div className="flex justify-center mb-6">
-          <div className="bg-primary rounded-2xl p-5 shadow-lg shadow-primary/20">
-            <Lock className="h-10 w-10 text-primary-foreground" strokeWidth={2.5} />
-          </div>
-        </div>
-
-        {/* Title */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">MPDEE DIGIDOCS</h1>
-          <p className="text-sm text-muted-foreground">Digital Work Document System - Demonstration App</p>
-        </div>
-
-        {/* Login Card */}
         <Card className="bg-card border-border shadow-2xl">
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
