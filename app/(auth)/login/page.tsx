@@ -187,7 +187,14 @@ export default function LoginPage() {
         {/* Demo Login Buttons */}
         <Card className="bg-card border-border shadow-lg mt-6">
           <CardContent className="p-6">
-            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">Quick Demo Login</h3>
+            <div className="mb-4 text-center">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Demonstration Environment</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Welcome to the MPDEE DIGIDOCS demonstration platform. This is a fully functional preview of our workforce management system, 
+                pre-populated with sample data. Feel free to explore all features and capabilities by logging in with any of the 
+                pre-configured accounts below, each representing a different user role and permission level within the system.
+              </p>
+            </div>
             <div className="space-y-3">
               {/* Admin Demo */}
               <Button
