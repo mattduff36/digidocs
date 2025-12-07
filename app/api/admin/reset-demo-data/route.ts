@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
         }
         
         console.log('🔄 Starting database reset and regeneration...');
-        send({ stage: 'Starting reset...', progress: 5 });
+        send({ stage: 'Starting reset...', progress: 2 });
         
         // Step 1: Delete all demo-related data (keeping only the superadmin user)
         const tablesToClear = [
@@ -52,9 +52,9 @@ export async function POST(request: NextRequest) {
           'audit_log',
         ];
         
-        const totalTables = tablesToClear.length + 3; // +3 for profiles, vehicles, and script
-        let currentProgress = 10;
-        const progressPerTable = 30 / totalTables;
+        // Allocate only 15% for database clearing (2-17%)
+        let currentProgress = 2;
+        const progressPerTable = 15 / (tablesToClear.length + 2); // +2 for profiles and vehicles
         
         // Clear all tables
         for (const table of tablesToClear) {
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
         
         // Delete all demo users (except superadmin)
         console.log('  Deleting demo user profiles...');
-        send({ stage: 'Deleting demo user profiles...', progress: 40 });
+        send({ stage: 'Deleting demo user profiles...', progress: Math.round(currentProgress) });
         
         // Use user.id instead of email to identify superadmin
         const { error: profileError } = await supabase
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         
         // Delete all vehicles
         console.log('  Deleting vehicles...');
-        send({ stage: 'Deleting vehicles...', progress: 45 });
+        send({ stage: 'Deleting vehicles...', progress: Math.round(currentProgress) });
         
         const { error: vehicleError } = await supabase
           .from('vehicles')
@@ -103,19 +103,45 @@ export async function POST(request: NextRequest) {
         }
         
         console.log('✅ Database cleared successfully');
-        send({ stage: 'Database cleared, regenerating demo data...', progress: 50 });
+        send({ stage: 'Database cleared, starting demo data generation...', progress: 18 });
         
         // Step 2: Regenerate demo data by running the script
+        // This takes 80% of the progress bar (20-100%)
         console.log('🔄 Regenerating demo data...');
         
         try {
-          // Run the demo data generation script
-          send({ stage: 'Creating demo users...', progress: 60 });
+          // Start the script and simulate progress during execution
+          send({ stage: 'Creating demo users and roles...', progress: 25 });
           
-          const { stdout, stderr } = await execAsync('npm run create:demo-data', {
+          // Run script in background while updating progress
+          const scriptPromise = execAsync('npm run create:demo-data', {
             cwd: process.cwd(),
             timeout: 300000, // 5 minutes timeout
           });
+          
+          // Gradually increment progress while script runs
+          const progressInterval = setInterval(() => {
+            currentProgress += 1;
+            if (currentProgress < 95) {
+              const stages = [
+                { min: 25, max: 35, stage: 'Creating demo users and roles...' },
+                { min: 35, max: 45, stage: 'Setting up vehicles...' },
+                { min: 45, max: 60, stage: 'Generating RAMS documents...' },
+                { min: 60, max: 70, stage: 'Creating toolbox talks...' },
+                { min: 70, max: 85, stage: 'Generating timesheets (4 weeks)...' },
+                { min: 85, max: 95, stage: 'Creating vehicle inspections...' },
+              ];
+              
+              const currentStage = stages.find(s => currentProgress >= s.min && currentProgress < s.max);
+              if (currentStage) {
+                send({ stage: currentStage.stage, progress: Math.round(currentProgress) });
+              }
+            }
+          }, 800); // Update every 800ms
+          
+          // Wait for script to complete
+          const { stdout, stderr } = await scriptPromise;
+          clearInterval(progressInterval);
           
           if (stderr && !stderr.includes('npm')) {
             console.error('Script stderr:', stderr);
@@ -124,7 +150,7 @@ export async function POST(request: NextRequest) {
           console.log('Script output:', stdout);
           console.log('✅ Demo data regenerated successfully');
           
-          send({ stage: 'Demo data regenerated successfully!', progress: 95 });
+          send({ stage: 'Finalizing demo data...', progress: 97 });
           
           // Final completion
           setTimeout(() => {
