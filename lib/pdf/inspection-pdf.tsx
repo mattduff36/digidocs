@@ -325,7 +325,7 @@ export function InspectionPDF({ inspection, items, vehicleReg, employeeName }: I
             </View>
             <View style={[styles.topCell, { width: '30%' }]}>
               <Text style={styles.topLabel}>MILEAGE.</Text>
-              <Text style={styles.topValue}>{inspection.current_mileage || ''}</Text>
+              <Text style={styles.topValue}>{inspection.mileage || ''}</Text>
             </View>
             <View style={[styles.topCellLast, { width: '40%' }]}>
               <Text style={styles.topLabel}>DRIVER NAME.</Text>
@@ -337,7 +337,7 @@ export function InspectionPDF({ inspection, items, vehicleReg, employeeName }: I
           <View style={styles.weekRow}>
             <View style={styles.weekLabel}>
               <Text style={styles.topLabel}>WEEK ENDING.</Text>
-              <Text style={styles.topValue}>{inspection.inspection_end_date ? formatDate(new Date(inspection.inspection_end_date)) : ''}</Text>
+              <Text style={styles.topValue}>{inspection.week_ending ? formatDate(new Date(inspection.week_ending)) : ''}</Text>
             </View>
             <View style={styles.dayCell}>
               <Text style={styles.dayText}>MON</Text>

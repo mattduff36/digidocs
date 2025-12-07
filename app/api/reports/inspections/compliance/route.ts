@@ -34,8 +34,7 @@ export async function GET(request: NextRequest) {
       .from('vehicle_inspections')
       .select(`
         id,
-        inspection_date,
-        inspection_end_date,
+        week_ending,
         status,
         submitted_at,
         reviewed_at,
@@ -52,14 +51,14 @@ export async function GET(request: NextRequest) {
           employee_id
         )
       `)
-      .order('inspection_date', { ascending: false });
+      .order('week_ending', { ascending: false });
 
     // Apply filters
     if (dateFrom) {
-      query = query.gte('inspection_date', dateFrom);
+      query = query.gte('week_ending', dateFrom);
     }
     if (dateTo) {
-      query = query.lte('inspection_date', dateTo);
+      query = query.lte('week_ending', dateTo);
     }
 
     const { data: inspections, error } = await query;
@@ -79,8 +78,7 @@ export async function GET(request: NextRequest) {
       'Vehicle Type': inspection.vehicle?.vehicle_type || '-',
       'Inspector': inspection.inspector?.full_name || 'Unknown',
       'Employee ID': inspection.inspector?.employee_id || '-',
-      'Inspection Date': formatExcelDate(inspection.inspection_date),
-      'End Date': inspection.inspection_end_date ? formatExcelDate(inspection.inspection_end_date) : '-',
+      'Week Ending': formatExcelDate(inspection.week_ending),
       'Status': formatExcelStatus(inspection.status),
       'Submitted': inspection.submitted_at ? formatExcelDate(inspection.submitted_at) : '-',
       'Reviewed': inspection.reviewed_at ? formatExcelDate(inspection.reviewed_at) : '-',

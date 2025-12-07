@@ -60,13 +60,13 @@ export async function GET(request: NextRequest) {
           .from('vehicle_inspections')
           .select(`
             user_id,
-            inspection_date,
+            week_ending,
             profiles!vehicle_inspections_user_id_fkey (
               full_name
             )
           `)
           .eq('vehicle_id', vehicle.id)
-          .order('inspection_date', { ascending: false })
+          .order('week_ending', { ascending: false })
           .limit(1);
 
         const lastInspection = inspections?.[0] || null;
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
         return {
           ...vehicle,
           last_inspector: lastInspection?.profiles?.full_name || null,
-          last_inspection_date: lastInspection?.inspection_date || null,
+          last_inspection_date: lastInspection?.week_ending || null,
         };
       })
     );

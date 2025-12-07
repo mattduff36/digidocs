@@ -228,8 +228,8 @@ function NewInspectionContent() {
       // Populate form with inspection data
       setExistingInspectionId(id);
       setVehicleId((inspection as any).vehicles?.id || '');
-      setWeekEnding(inspection.inspection_end_date || formatDateISO(getWeekEnding()));
-      setCurrentMileage(inspection.current_mileage?.toString() || '');
+      setWeekEnding(inspection.week_ending || formatDateISO(getWeekEnding()));
+      setCurrentMileage(inspection.mileage?.toString() || '');
       
       // Set the employee (for managers creating inspections for others)
       setSelectedEmployeeId(inspection.user_id);
@@ -437,13 +437,11 @@ function NewInspectionContent() {
       const inspectionData: InspectionInsert = {
         vehicle_id: vehicleId,
         user_id: selectedEmployeeId, // Use selected employee ID (can be manager's own ID or another employee's)
-        inspection_date: formatDateISO(startDate),
-        inspection_end_date: weekEnding,
-        current_mileage: parseInt(currentMileage),
+        week_ending: weekEnding,
+        mileage: parseInt(currentMileage),
+        checked_by: null,
         status,
         submitted_at: status === 'submitted' ? new Date().toISOString() : null,
-        signature_data: signatureData || null,
-        signed_at: signatureData ? new Date().toISOString() : null,
       };
 
       // Check if offline
@@ -497,13 +495,11 @@ function NewInspectionContent() {
         const inspectionUpdate: InspectionUpdate = {
           vehicle_id: vehicleId,
           user_id: selectedEmployeeId,
-          inspection_date: formatDateISO(startDate),
-          inspection_end_date: weekEnding,
-          current_mileage: parseInt(currentMileage),
+          week_ending: weekEnding,
+          mileage: parseInt(currentMileage),
+          checked_by: null,
           status,
           submitted_at: status === 'submitted' ? new Date().toISOString() : null,
-          signature_data: signatureData || null,
-          signed_at: signatureData ? new Date().toISOString() : null,
           updated_at: new Date().toISOString(),
         };
 

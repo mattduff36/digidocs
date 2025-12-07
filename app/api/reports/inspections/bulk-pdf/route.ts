@@ -49,9 +49,9 @@ export async function GET(request: NextRequest) {
         profile:profiles!vehicle_inspections_user_id_fkey(full_name)
       `)
       .neq('status', 'draft')
-      .gte('inspection_end_date', dateFrom)
-      .lte('inspection_end_date', dateTo)
-      .order('inspection_end_date', { ascending: true });
+      .gte('week_ending', dateFrom)
+      .lte('week_ending', dateTo)
+      .order('week_ending', { ascending: true });
 
     if (inspectionsError) {
       console.error('Error fetching inspections:', inspectionsError);
@@ -219,9 +219,9 @@ export async function POST(request: NextRequest) {
             profile:profiles!vehicle_inspections_user_id_fkey(full_name)
           `)
           .neq('status', 'draft')
-          .gte('inspection_end_date', dateFrom)
-          .lte('inspection_end_date', dateTo)
-          .order('inspection_end_date', { ascending: true });
+          .gte('week_ending', dateFrom)
+          .lte('week_ending', dateTo)
+          .order('week_ending', { ascending: true });
 
         if (inspectionsError) {
           controller.enqueue(encoder.encode(JSON.stringify({ error: 'Failed to fetch inspections' }) + '\n'));

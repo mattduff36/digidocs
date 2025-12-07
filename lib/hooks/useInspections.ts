@@ -35,7 +35,7 @@ export function useInspections({ userId, isManager, selectedEmployeeId, statusFi
           ),
           profile:profiles!vehicle_inspections_user_id_fkey(full_name)
         `)
-        .order('inspection_date', { ascending: false });
+        .order('week_ending', { ascending: false });
 
       // Manager viewing all or specific employee
       if (isManager && selectedEmployeeId && selectedEmployeeId !== 'all') {

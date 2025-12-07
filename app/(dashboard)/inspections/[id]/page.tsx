@@ -362,11 +362,7 @@ export default function ViewInspectionPage() {
             <div>
               <h1 className="text-xl md:text-3xl font-bold text-slate-900 dark:text-white">Vehicle Inspection</h1>
               <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">
-                {inspection.vehicles?.reg_number} • {
-                  inspection.inspection_end_date && inspection.inspection_end_date !== inspection.inspection_date
-                    ? `${formatDate(inspection.inspection_date)} - ${formatDate(inspection.inspection_end_date)}`
-                    : formatDate(inspection.inspection_date)
-                }
+                {inspection.vehicles?.reg_number} • Week ending {formatDate(inspection.week_ending)}
               </p>
             </div>
           </div>

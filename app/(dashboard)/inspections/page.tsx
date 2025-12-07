@@ -121,7 +121,7 @@ function InspectionsContent() {
           ),
           profile:profiles!vehicle_inspections_user_id_fkey(full_name)
         `)
-        .order('inspection_date', { ascending: false });
+        .order('week_ending', { ascending: false });
 
       // Filter based on user role and selection
       if (!isManager) {

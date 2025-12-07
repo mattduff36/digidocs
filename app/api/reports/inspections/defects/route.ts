@@ -34,8 +34,7 @@ export async function GET(request: NextRequest) {
       .from('vehicle_inspections')
       .select(`
         id,
-        inspection_date,
-        inspection_end_date,
+        week_ending,
         status,
         submitted_at,
         vehicle_id,
@@ -58,14 +57,14 @@ export async function GET(request: NextRequest) {
         )
       `)
       .eq('inspection_items.status', 'defect')
-      .order('inspection_date', { ascending: false });
+      .order('week_ending', { ascending: false });
 
     // Apply filters
     if (dateFrom) {
-      query = query.gte('inspection_date', dateFrom);
+      query = query.gte('week_ending', dateFrom);
     }
     if (dateTo) {
-      query = query.lte('inspection_date', dateTo);
+      query = query.lte('week_ending', dateTo);
     }
 
     const { data: inspections, error } = await query;
@@ -90,7 +89,7 @@ export async function GET(request: NextRequest) {
           'Vehicle Reg': inspection.vehicle?.reg_number || '-',
           'Vehicle Type': inspection.vehicle?.vehicle_type || '-',
           'Inspector': inspection.inspector?.full_name || 'Unknown',
-          'Inspection Date': formatExcelDate(inspection.inspection_date),
+          'Week Ending': formatExcelDate(inspection.week_ending),
           'Item #': item.item_number,
           'Item Description': item.item_description,
           'Defect Comments': item.comments || '-',

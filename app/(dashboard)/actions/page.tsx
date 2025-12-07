@@ -14,7 +14,7 @@ import { Database } from '@/types/database';
 
 type Action = Database['public']['Tables']['actions']['Row'] & {
   vehicle_inspections?: {
-    inspection_date: string;
+    week_ending: string;
     vehicles?: {
       reg_number: string;
     };
@@ -54,7 +54,7 @@ export default function ActionsPage() {
         .select(`
           *,
           vehicle_inspections (
-            inspection_date,
+            week_ending,
             vehicles (
               reg_number
             )

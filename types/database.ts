@@ -205,16 +205,15 @@ export interface Database {
           id: string
           vehicle_id: string
           user_id: string
-          inspection_date: string
-          inspection_end_date: string | null
-          current_mileage: number | null
-          status: 'draft' | 'submitted'
+          week_ending: string
+          mileage: number | null
+          checked_by: string | null
+          defects_comments: string | null
+          action_taken: string | null
+          status: 'draft' | 'in_progress' | 'submitted' | 'reviewed' | 'rejected'
           submitted_at: string | null
           reviewed_by: string | null
           reviewed_at: string | null
-          manager_comments: string | null
-          signature_data: string | null
-          signed_at: string | null
           created_at: string
           updated_at: string
         }
@@ -222,16 +221,15 @@ export interface Database {
           id?: string
           vehicle_id: string
           user_id: string
-          inspection_date: string
-          inspection_end_date?: string | null
-          current_mileage?: number | null
-          status?: 'draft' | 'submitted'
+          week_ending: string
+          mileage?: number | null
+          checked_by?: string | null
+          defects_comments?: string | null
+          action_taken?: string | null
+          status?: 'draft' | 'in_progress' | 'submitted' | 'reviewed' | 'rejected'
           submitted_at?: string | null
           reviewed_by?: string | null
           reviewed_at?: string | null
-          manager_comments?: string | null
-          signature_data?: string | null
-          signed_at?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -239,16 +237,15 @@ export interface Database {
           id?: string
           vehicle_id?: string
           user_id?: string
-          inspection_date?: string
-          inspection_end_date?: string | null
-          current_mileage?: number | null
-          status?: 'draft' | 'submitted'
+          week_ending?: string
+          mileage?: number | null
+          checked_by?: string | null
+          defects_comments?: string | null
+          action_taken?: string | null
+          status?: 'draft' | 'in_progress' | 'submitted' | 'reviewed' | 'rejected'
           submitted_at?: string | null
           reviewed_by?: string | null
           reviewed_at?: string | null
-          manager_comments?: string | null
-          signature_data?: string | null
-          signed_at?: string | null
           created_at?: string
           updated_at?: string
         }

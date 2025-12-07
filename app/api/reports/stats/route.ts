@@ -73,15 +73,15 @@ export async function GET(request: NextRequest) {
       supabase
         .from('vehicle_inspections')
         .select('id', { count: 'exact' })
-        .gte('inspection_date', startOfWeek.toISOString())
-        .lte('inspection_date', endOfWeek.toISOString()),
-      
+        .gte('week_ending', startOfWeek.toISOString())
+        .lte('week_ending', endOfWeek.toISOString()),
+
       // Inspections completed this month
       supabase
         .from('vehicle_inspections')
         .select('id', { count: 'exact' })
-        .gte('inspection_date', startOfMonth.toISOString())
-        .lte('inspection_date', endOfMonth.toISOString()),
+        .gte('week_ending', startOfMonth.toISOString())
+        .lte('week_ending', endOfMonth.toISOString()),
     ]);
 
     // Calculate total hours
@@ -94,11 +94,11 @@ export async function GET(request: NextRequest) {
       .select(`
         status,
         inspection:vehicle_inspections!inner (
-          inspection_date
+          week_ending
         )
       `)
-      .gte('inspection.inspection_date', startOfMonth.toISOString())
-      .lte('inspection.inspection_date', endOfMonth.toISOString());
+      .gte('inspection.week_ending', startOfMonth.toISOString())
+      .lte('inspection.week_ending', endOfMonth.toISOString());
 
     const passCount = inspectionItems?.filter(i => i.status === 'pass').length || 0;
     const failCount = inspectionItems?.filter(i => i.status === 'fail').length || 0;
@@ -114,12 +114,12 @@ export async function GET(request: NextRequest) {
       .select(`
         id,
         inspection:vehicle_inspections!inner (
-          inspection_date,
+          week_ending,
           status
         )
       `)
       .eq('status', 'fail')
-      .gte('inspection.inspection_date', thirtyDaysAgo.toISOString());
+      .gte('inspection.week_ending', thirtyDaysAgo.toISOString());
 
     const outstandingDefects = recentDefects?.filter(
       (d: any) => d.inspection.status !== 'approved'
