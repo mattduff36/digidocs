@@ -194,13 +194,13 @@ export default function LoginPage() {
                 type="button"
                 variant="outline"
                 className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
-                onClick={() => handleDemoLogin('sarah.mitchell@digidocsdemo.com', 'Password123')}
+                onClick={() => handleDemoLogin('david.clarke@digidocsdemo.com', 'Password123')}
                 disabled={loading}
               >
                 <UserCog className="h-5 w-5 mr-3 text-purple-500" />
                 <div className="text-left">
                   <div className="font-semibold text-foreground">Administrator</div>
-                  <div className="text-xs text-muted-foreground">Sarah Mitchell - Full system access</div>
+                  <div className="text-xs text-muted-foreground">David Clarke - Full system access</div>
                 </div>
               </Button>
 
@@ -209,13 +209,13 @@ export default function LoginPage() {
                 type="button"
                 variant="outline"
                 className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
-                onClick={() => handleDemoLogin('james.wilson@digidocsdemo.com', 'Password123')}
+                onClick={() => handleDemoLogin('sarah.johnson@digidocsdemo.com', 'Password123')}
                 disabled={loading}
               >
                 <Briefcase className="h-5 w-5 mr-3 text-blue-500" />
                 <div className="text-left">
                   <div className="font-semibold text-foreground">Manager</div>
-                  <div className="text-xs text-muted-foreground">James Wilson - Team oversight & approvals</div>
+                  <div className="text-xs text-muted-foreground">Sarah Johnson - Team oversight & approvals</div>
                 </div>
               </Button>
 
@@ -224,13 +224,13 @@ export default function LoginPage() {
                 type="button"
                 variant="outline"
                 className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
-                onClick={() => handleDemoLogin('john.smith@digidocsdemo.com', 'Password123')}
+                onClick={() => handleDemoLogin('james.harrison@digidocsdemo.com', 'Password123')}
                 disabled={loading}
               >
                 <User className="h-5 w-5 mr-3 text-green-500" />
                 <div className="text-left">
                   <div className="font-semibold text-foreground">Employee</div>
-                  <div className="text-xs text-muted-foreground">John Smith - Submit timesheets & inspections</div>
+                  <div className="text-xs text-muted-foreground">James Harrison - Submit timesheets & inspections</div>
                 </div>
               </Button>
 
@@ -239,13 +239,13 @@ export default function LoginPage() {
                 type="button"
                 variant="outline"
                 className="w-full justify-start h-auto py-3 px-4 hover:bg-accent"
-                onClick={() => handleDemoLogin('david.brown@digidocsdemo.com', 'Password123')}
+                onClick={() => handleDemoLogin('michael.davis@digidocsdemo.com', 'Password123')}
                 disabled={loading}
               >
                 <HardHat className="h-5 w-5 mr-3 text-orange-500" />
                 <div className="text-left">
                   <div className="font-semibold text-foreground">Contractor</div>
-                  <div className="text-xs text-muted-foreground">David Brown - Limited contractor access</div>
+                  <div className="text-xs text-muted-foreground">Michael Davis - Limited contractor access</div>
                 </div>
               </Button>
             </div>
