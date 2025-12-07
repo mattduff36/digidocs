@@ -93,7 +93,32 @@ WHERE id = 'paste-user-id-here';
 
 You can find the user ID in Authentication > Users table.
 
-### 5. Run Development Server
+### 5. Generate Demo Data (Optional)
+
+For demonstrations and testing, you can populate the database with sample data:
+
+```bash
+# First, set up storage buckets
+npm run setup:demo-storage
+
+# Then generate demo data (4 weeks of sample data)
+npm run create:demo-data
+```
+
+This creates:
+- 23 demo user accounts (14 employees, 5 contractors, 3 managers, 1 admin)
+- 13 sample vehicles
+- 3 RAMS documents with assignments
+- 2 Toolbox Talk documents
+- 76 timesheets with 532 entries
+- 68 vehicle inspections
+- 5 absence records
+
+**Demo Account Credentials:**
+- Email: `[firstname].[lastname]@digidocsdemo.com`
+- Password: `Password123`
+
+### 6. Run Development Server
 
 ```bash
 npm run dev
@@ -233,12 +258,14 @@ Proprietary - MPDEE Ltd.
 
 ## Version
 
-**v2.0.0** - Skeleton Release (December 2025)
+**v2.1.0** - Production Ready (December 2025)
 - Fully customizable digital forms management system
-- Neutral branding and theme
-- Light and dark mode support
-- Renamed RAMS to Documents
-- Updated all configuration and documentation
+- Complete demo data generation for client demonstrations
+- Aligned database schema with TypeScript types
+- Comprehensive codebase cleanup and optimization
+- Light and dark mode support with neutral branding
+- Full offline PWA support with sync capabilities
+- Role-based access control and permissions system
 
 ---
 
