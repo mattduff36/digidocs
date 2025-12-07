@@ -225,6 +225,7 @@ CREATE TABLE IF NOT EXISTS messages (
   priority TEXT NOT NULL CHECK (priority IN ('HIGH', 'LOW')),
   sender_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
   pdf_url TEXT,
+  pdf_file_path TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
   deleted_at TIMESTAMPTZ,
@@ -576,6 +577,29 @@ ALTER TABLE absences ENABLE ROW LEVEL SECURITY;
 ALTER TABLE error_logs ENABLE ROW LEVEL SECURITY;
 
 -- ========================================
+-- HELPER FUNCTIONS FOR RLS
+-- ========================================
+
+-- Function to check if current user is manager/admin without causing RLS recursion
+CREATE OR REPLACE FUNCTION is_manager_admin()
+RETURNS BOOLEAN
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  user_is_admin BOOLEAN;
+BEGIN
+  SELECT r.is_manager_admin INTO user_is_admin
+  FROM profiles p
+  JOIN roles r ON p.role_id = r.id
+  WHERE p.id = auth.uid();
+  
+  RETURN COALESCE(user_is_admin, false);
+END;
+$$;
+
+-- ========================================
 -- RLS POLICIES
 -- ========================================
 
@@ -584,12 +608,8 @@ ALTER TABLE error_logs ENABLE ROW LEVEL SECURITY;
 -- ----------------------------------------
 CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
 CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
-CREATE POLICY "Admins can view all profiles" ON profiles FOR SELECT USING (
-  EXISTS (SELECT 1 FROM profiles p JOIN roles r ON p.role_id = r.id WHERE p.id = auth.uid() AND r.is_manager_admin = true)
-);
-CREATE POLICY "Admins can manage all profiles" ON profiles FOR ALL USING (
-  EXISTS (SELECT 1 FROM profiles p JOIN roles r ON p.role_id = r.id WHERE p.id = auth.uid() AND r.is_manager_admin = true)
-);
+CREATE POLICY "Admins can view all profiles" ON profiles FOR SELECT USING (is_manager_admin());
+CREATE POLICY "Admins can manage all profiles" ON profiles FOR ALL USING (is_manager_admin());
 
 -- ----------------------------------------
 -- ROLES POLICIES
