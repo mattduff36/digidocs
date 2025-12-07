@@ -380,17 +380,6 @@ export default function DebugPage() {
     toast.loading('Resetting database...', { id: 'reset' });
     
     try {
-      // Simulate progress stages
-      const progressInterval = setInterval(() => {
-        setResetProgress((prev) => {
-          if (prev < 90) return prev + 2;
-          return prev;
-        });
-      }, 500);
-
-      setResetStage('Clearing database tables...');
-      setResetProgress(10);
-      
       const response = await fetch('/api/admin/reset-demo-data', {
         method: 'POST',
         headers: {
@@ -398,25 +387,61 @@ export default function DebugPage() {
         },
       });
 
-      const data = await response.json();
-      clearInterval(progressInterval);
-
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to reset database');
+        throw new Error('Failed to start reset process');
       }
 
-      setResetProgress(100);
-      setResetStage('Complete! ✓');
-      toast.success('Database reset and demo data regenerated!', { id: 'reset' });
+      // Read the stream for progress updates
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
       
-      // Refresh all data after a short delay
-      setTimeout(() => {
-        fetchAllEntities();
-        fetchAuditLogs();
-        fetchErrorLogs();
-        setResetProgress(0);
-        setResetStage('');
-      }, 2000);
+      if (!reader) {
+        throw new Error('No response body');
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) break;
+        
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              
+              if (data.error) {
+                throw new Error(data.error);
+              }
+              
+              if (data.progress !== undefined) {
+                setResetProgress(data.progress);
+              }
+              
+              if (data.stage) {
+                setResetStage(data.stage);
+              }
+              
+              if (data.success) {
+                toast.success('Database reset and demo data regenerated!', { id: 'reset' });
+                
+                // Refresh all data after a short delay
+                setTimeout(() => {
+                  fetchAllEntities();
+                  fetchAuditLogs();
+                  fetchErrorLogs();
+                  setResetProgress(0);
+                  setResetStage('');
+                }, 2000);
+              }
+            } catch (parseError) {
+              console.error('Error parsing progress update:', parseError);
+            }
+          }
+        }
+      }
       
     } catch (error: any) {
       console.error('Error resetting database:', error);
