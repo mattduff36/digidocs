@@ -253,7 +253,13 @@ export default function DashboardPage() {
         .order('created_at', { ascending: false })
         .limit(5);
 
-      if (error) throw error;
+      if (error) {
+        // Silently fail if actions table is not accessible (RLS or permissions)
+        // This is not critical to dashboard functionality
+        console.debug('Actions not available:', error.message);
+        setTopActions([]);
+        return;
+      }
 
       // Sort by priority: urgent > high > medium > low
       const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
@@ -263,7 +269,9 @@ export default function DashboardPage() {
 
       setTopActions(sortedData);
     } catch (error) {
-      console.error('Error fetching top actions:', error);
+      // Gracefully handle any errors - actions are optional
+      console.debug('Top actions unavailable');
+      setTopActions([]);
     }
   };
 
