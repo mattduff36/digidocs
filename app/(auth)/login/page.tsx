@@ -183,9 +183,11 @@ export default function LoginPage() {
         <div className="mt-6 text-center text-sm text-muted-foreground">
           <p className="mb-4">Contact your administrator for account access</p>
         </div>
+      </div>
 
-        {/* Demo Login Buttons */}
-        <Card className="bg-card border-border shadow-lg mt-6">
+      {/* Demo Login Buttons - Wider on desktop */}
+      <div className="w-full max-w-md md:max-w-3xl relative z-10 mt-6">
+        <Card className="bg-card border-border shadow-lg">
           <CardContent className="p-6">
             <div className="mb-4 text-center">
               <h3 className="text-lg font-semibold text-foreground mb-2">Demonstration Environment</h3>
@@ -195,7 +197,7 @@ export default function LoginPage() {
                 pre-configured accounts below, each representing a different user role and permission level within the system.
               </p>
             </div>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {/* Admin Demo */}
               <Button
                 type="button"
